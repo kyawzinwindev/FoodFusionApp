@@ -1,0 +1,557 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f8f8f8;
+}
+
+/* MAIN NAVBAR */
+.navbar {
+  width: 100%;
+  padding: 15px 30px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  /* NEW: make navbar fixed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 888;     /* stay above any content */
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ff7a30;
+  letter-spacing: 1px;
+}
+
+/* NAV LINKS (DESKTOP) */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.navbar-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.navbar-links li a:hover {
+  color: #ff7a30;
+}
+
+/* AUTH BUTTONS */
+.login-btn,
+.logout-btn {
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 25px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-btn {
+  background: #ff7a30;
+  color: white;
+}
+
+.logout-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.mobile-btn {
+    display: none;
+}
+
+
+/* DESKTOP AUTH VISIBILITY */
+.desktop-auth {
+  display: block;
+}
+
+/* HAMBURGER */
+.hamburger {
+  width: 30px;
+  height: 22px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  display: none;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background: #333;
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
+/* HAMBURGER ACTIVE ANIMATION */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Intro Section */
+.intro-section {
+  display: flex;
+  align-items: center;
+  padding: 80px 10%;
+  gap: 40px;
+  background: #fff;
+}
+
+.intro-section img {
+  width: 45%;
+  border-radius: 15px;
+}
+
+.intro-content h1 {
+  font-size: 42px;
+  color: #ff7a30;
+  margin-bottom: 15px;
+}
+
+.intro-content p {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.join-btn {
+  background: #ff7a30;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 25px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Featured Recipes */
+.featured {
+  padding: 50px 10%;
+}
+
+.featured h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #ff7a30;
+}
+
+.recipe-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipe-card {
+  width: 30%;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.recipe-card h3 {
+  margin-top: 10px;
+  color: #ff7a30;
+}
+
+.recipe-card p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Carousel Styles */
+.carousel-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.carousel-section h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #ff7a30;
+}
+
+.carousel {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.slide {
+  display: none;
+}
+
+.slide img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* Dots */
+.carousel-dots {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carousel-dots span {
+  width: 12px;
+  height: 12px;
+  background-color: #d0d0d0;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.carousel-dots .active {
+  background-color: #ff5722;
+  transform: scale(1.2);
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  background: #ff7a3015;
+  padding: 50px 10%;
+  border-top: 1px solid #ddd;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: #ff7a30;
+  margin-bottom: 12px;
+}
+
+.footer-section p {
+  color: #555;
+  font-size: 15px;
+}
+
+.footer-section a {
+  display: block;
+  margin: 5px 0;
+  color: #444;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-section a:hover {
+  color: #ff7a30;
+}
+
+.footer-social a {
+  margin-right: 10px;
+  color: #ff7a30;
+  font-weight: bold;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 35px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  color: #444;
+}
+
+.footer-bottom a {
+  color: #ff7a30;
+}
+
+/* ---------------- COOKIE CONSENT ---------------- */
+#cookieConsent {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #ff7a30;
+  padding: 18px 20px;
+  z-index: 888;
+  color: white;
+}
+
+.cookie-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: auto;
+}
+
+#cookieConsent p {
+  margin: 0;
+  font-size: 15px;
+}
+
+#cookieConsent a {
+  color: white;
+  text-decoration: underline;
+}
+
+#acceptCookieBtn {
+  background: white;
+  color: #ff7a30;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#acceptCookieBtn:hover {
+  opacity: 0.85;
+}
+
+/* POPUP OVERLAY */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* POPUP BOX */
+.popup-box {
+  background: white;
+  width: 420px;
+  padding: 40px 35px;
+  border-radius: 20px;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* CLOSE BUTTON */
+.popup-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 26px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* FORM */
+.popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* INPUT STYLING FIXED */
+.popup-input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  font-size: 16px;
+  outline: none;
+}
+
+.popup-input:focus {
+  border-color: #ff7a30;
+}
+
+/* BUTTON */
+.popup-submit {
+  background: #ff7a30;
+  color: white;
+  padding: 14px 0;
+  border-radius: 14px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablets */
+@media (max-width: 1250px) {
+  /* Hide desktop auth */
+  .desktop-auth {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* NAV MENU mobile design */
+  .navbar-links {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    display: block;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: 0.35s ease;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .navbar-links.open {
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .navbar-links li {
+    padding: 15px 0;
+    text-align: center;
+  }
+
+  .navbar-links li a {
+    font-size: 18px;
+    display: block;
+    width: 100%;
+  }
+
+  /* MOBILE LOGIN/LOGOUT inside menu */
+  .mobile-btn {
+    width: 70%;
+    margin: 8px auto;
+    display: block;
+    font-size: 16px;
+    padding: 10px 0;
+    border-radius: 25px;
+  }
+
+  .intro-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .intro-section img {
+    width: 80%;
+  }
+
+  .recipe-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .recipe-card {
+    width: 45%;
+  }
+
+  .carousel img {
+    width: 70%;
+  }
+
+  .about-grid {
+    flex-direction: column;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  
+  .intro-section img {
+    width: 100%;
+  }
+
+  .intro-content h1 {
+    font-size: 32px;
+  }
+
+  .intro-content p {
+    font-size: 16px;
+  }
+
+  .recipe-card {
+    width: 100%;
+  }
+
+  .carousel img {
+    width: 100%;
+  }
+
+  .popup {
+    width: 90%;
+  }
+
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .cookie-wrapper {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  #acceptCookieBtn {
+    width: 100%;
+  }
+}
