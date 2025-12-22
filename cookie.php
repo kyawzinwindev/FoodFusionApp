@@ -57,7 +57,7 @@
     <!-- Footer -->
     <?php require("./components/footer.php") ?>
 
-    <script src="./js/app.js"></script>
+    <script src="./js/app.js" defer></script>
 </body>
 
 </html>

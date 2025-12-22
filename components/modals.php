@@ -29,30 +29,17 @@
 </div>
 
 <script>
+    // Helper functions for modals
     function openModal(id) {
-        document.getElementById(id).style.display = 'flex';
+        const modal = document.getElementById(id);
+        if (modal) modal.style.display = 'flex';
     }
     function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
+        const modal = document.getElementById(id);
+        if (modal) modal.style.display = 'none';
     }
     function switchModal(closeId, openId) {
         closeModal(closeId);
         openModal(openId);
     }
-    // Close on click outside
-    window.onclick = function(event) {
-        if (event.target.classList.contains('popup-overlay')) {
-            event.target.style.display = "none";
-        }
-    }
-
-    // Attach to buttons if they exist
-    document.addEventListener('DOMContentLoaded', function() {
-        const loginBtn = document.getElementById('openLogin');
-        if(loginBtn) {
-            loginBtn.addEventListener('click', function() {
-                openModal('loginModal');
-            });
-        }
-    });
 </script>

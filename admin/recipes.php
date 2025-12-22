@@ -64,6 +64,6 @@ include("auth_check.php");
             </tbody>
         </table>
     </div>
-    <script src="../js/admin.js"></script>
+    <script src="../js/admin.js" defer></script>
 </body>
 </html>

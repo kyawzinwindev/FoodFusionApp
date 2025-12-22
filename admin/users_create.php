@@ -47,6 +47,6 @@
             </form>
         </div>
     </div>
-    <script src="../js/admin.js"></script>
+    <script src="../js/admin.js" defer></script>
 </body>
 </html>

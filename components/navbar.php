@@ -26,7 +26,7 @@
         <?php if (isset($_SESSION['id'])): ?>
             <li><a href="./components/logout.php" class="mobile-btn logout-btn">Logout</a></li>
         <?php else: ?>
-            <li><button class="mobile-btn login-btn" id="openLogin">Login</button></li>
+            <li><button class="mobile-btn login-btn" id="mobileLoginBtn">Login</button></li>
         <?php endif; ?>
     </ul>
 
