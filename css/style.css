@@ -563,6 +563,24 @@ body {
     color: #555;
 }
 
+/* Social Icons in About Page */
+.about-socials {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.about-socials img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.about-socials img:hover {
+    transform: scale(1.1);
+}
+
 /* ---------------- POLICY PAGES ---------------- */
 .policy-section {
   padding: 80px 10%;
