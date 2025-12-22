@@ -32,13 +32,12 @@ include("auth_check.php");
                     <th>Title</th>
                     <th>Cuisine</th>
                     <th>Difficulty</th>
-                    <th>Type</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT * FROM recipes WHERE recipe_type = 'official' ORDER BY created_at DESC";
+                $sql = "SELECT * FROM recipes ORDER BY created_at DESC";
                 $result = $connection->query($sql);
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
@@ -47,7 +46,6 @@ include("auth_check.php");
                         echo "<td>" . $row['title'] . "</td>";
                         echo "<td>" . $row['cuisine_type'] . "</td>";
                         echo "<td>" . $row['difficulty'] . "</td>";
-                        echo "<td>" . $row['recipe_type'] . "</td>";
                         echo "<td>
                                 <form action='../controllers/admin/AdminRecipesController.php' method='POST' style='display:inline;'>
                                     <input type='hidden' name='id' value='" . $row['id'] . "'>

@@ -16,7 +16,7 @@
         <?php if(isset($_SESSION['id'])): ?>
             <a href="community_cookbook_create.php" class="create-btn" >Share a Post</a>
         <?php else: ?>
-            <p style="margin-top:20px; color: #666;"><em><a href="#" onclick="openModal('loginModal')">Log in</a> to share your own recipes and tips!</em></p>
+            <p class="guest-message"><em><a href="#" onclick="openModal('loginModal')">Log in</a> to share your own recipes and tips!</em></p>
         <?php endif; ?>
     </div>
 

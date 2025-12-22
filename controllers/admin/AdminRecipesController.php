@@ -25,18 +25,17 @@ if (isset($_POST['create_recipe'])) {
     $cuisine_type = $_POST['cuisine_type'];
     $dietary_preference = $_POST['dietary_preference'];
     $difficulty = $_POST['difficulty'];
-    $recipe_type = $_POST['recipe_type'] ?? 'official';
     $user_id = $_POST['user_id'] ?? 1; // Default admin user ID if not logged in context
     $redirect = $_POST['redirect'] ?? '../../admin/recipes.php';
 
     // Image Upload
     $image_path = uploadImage($_FILES['image']);
 
-    $stmt = $connection->prepare("INSERT INTO recipes (title, description, ingredients, cuisine_type, difficulty, dietary_preference, user_id, recipe_type, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $connection->prepare("INSERT INTO recipes (title, description, ingredients, cuisine_type, difficulty, dietary_preference, user_id, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Prepare failed: " . $connection->error);
     }
-    $stmt->bind_param("ssssssiss", $title, $description, $ingredients, $cuisine_type, $difficulty, $dietary_preference, $user_id, $recipe_type, $image_path);
+    $stmt->bind_param("ssssssis", $title, $description, $ingredients, $cuisine_type, $difficulty, $dietary_preference, $user_id, $image_path);
 
     if ($stmt->execute()) {
         header("Location: $redirect?msg=Recipe created successfully");

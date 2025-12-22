@@ -20,7 +20,6 @@
 
         <div class="form-container" style="margin-top: 20px;">
             <form action="../controllers/admin/AdminRecipesController.php" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="recipe_type" value="official">
                 <input type="hidden" name="redirect" value="../../admin/recipes.php">
 
                 <div class="form-group">

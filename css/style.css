@@ -9,8 +9,82 @@
 body {
   background: #f8f8f8;
 }
+  /* Update CSS to support ZigZag and wide carousel */
+  
+/* Culinary Trends Section */
+.culinary-trends {
+    padding: 60px 10%;
+    background: #fff;
+}
 
-/* MAIN NAVBAR */
+.culinary-trends h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #ff7a30;
+    text-align: center;
+}
+
+.zigzag-row {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+/* Reverse every even row */
+.zigzag-row:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.zigzag-img {
+    flex: 1;
+}
+
+.zigzag-img img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    height: 300px;
+    object-fit: cover;
+}
+
+.zigzag-content {
+    flex: 1;
+}
+
+.zigzag-content h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.zigzag-content p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Guest Message Box */
+.guest-message {
+    background: #fff3e0;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #ff7a30;
+    color: #555;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.guest-message a {
+    color: #ff7a30;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.guest-message a:hover {
+    text-decoration: underline;
+}
 .navbar {
   width: 100%;
   padding: 15px 30px;
@@ -141,10 +215,12 @@ body {
 .intro-content p {
   font-size: 18px;
   color: #444;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .join-btn {
+  margin-top: 10px;
+  text-decoration: none;
   background: #ff7a30;
   color: white;
   padding: 12px 30px;
@@ -163,6 +239,7 @@ body {
   font-size: 30px;
   margin-bottom: 20px;
   color: #ff7a30;
+  text-align: center;
 }
 
 .recipe-container {
@@ -182,16 +259,40 @@ body {
 .recipe-card img {
   width: 100%;
   border-radius: 10px;
+  height: 250px;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 }
 
 .recipe-card h3 {
-  margin-top: 10px;
+  margin-top: 15px;
   color: #ff7a30;
+  margin-bottom: 5px;
+}
+
+.recipe-card .cuisine-tag {
+    color: #555;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    display: block;
 }
 
 .recipe-card p {
   font-size: 14px;
   color: #666;
+  margin-bottom: 20px;
+  min-height: 40px; /* Ensure alignment */
+}
+
+/* Meta Info Container */
+.meta-info-centered {
+    display: flex;
+    justify-content: space-around; /* Space Around */
+    align-items: center;
+    margin-top: auto; /* Push to bottom if flex column */
+    padding-top: 10px;
+    border-top: 1px solid #eee;
 }
 
 /* Carousel Styles */
@@ -207,7 +308,7 @@ body {
 }
 
 .carousel {
-  max-width: 600px;
+  max-width: 1000px; /* Expanded Width */
   margin: 0 auto;
   position: relative;
 }
@@ -219,6 +320,9 @@ body {
 .slide img {
   width: 100%;
   border-radius: 12px;
+  /* Fixed height and landscape aspect */
+  height: 500px; 
+  object-fit: cover;
 }
 
 /* Dots */
@@ -691,6 +795,29 @@ body {
     line-height: 1.5;
     margin-bottom: 20px;
     flex-grow: 1; /* Pushes actions down */
+}
+
+/* Difficulty Badges */
+.badge-diff {
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+.badge-diff.easy { background-color: #2ecc71; } /* Green */
+.badge-diff.medium { background-color: #f1c40f; color: #333; } /* Yellow */
+.badge-diff.hard { background-color: #e74c3c; } /* Red */
+
+/* Dietary Badge */
+.badge-diet {
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    background-color: #95a5a6; /* Gray */
+    color: white;
+    text-transform: uppercase;
 }
 
 /* Card Actions */

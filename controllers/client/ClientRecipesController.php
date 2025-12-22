@@ -49,15 +49,14 @@ if (isset($_POST['create_recipe'])) {
     $difficulty = $_POST['difficulty'];
     $dietary_preference = $_POST['dietary_preference'];
     $user_id = $_SESSION['id'];
-    $recipe_type = 'official';
 
     $image_path = uploadImage($_FILES['image']);
 
-    $stmt = $connection->prepare("INSERT INTO recipes (title, description, ingredients, cuisine_type, difficulty, dietary_preference, user_id, recipe_type, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $connection->prepare("INSERT INTO recipes (title, description, ingredients, cuisine_type, difficulty, dietary_preference, user_id, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Prepare failed: " . $connection->error);
     }
-    $stmt->bind_param("ssssssiss", $title, $description, $ingredients, $cuisine_type, $difficulty, $dietary_preference, $user_id, $recipe_type, $image_path);
+    $stmt->bind_param("ssssssis", $title, $description, $ingredients, $cuisine_type, $difficulty, $dietary_preference, $user_id, $image_path);
 
     if ($stmt->execute()) {
         header("Location: ../../recipes.php?msg=Recipe Created");

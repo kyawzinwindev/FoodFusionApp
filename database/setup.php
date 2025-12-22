@@ -1,4 +1,7 @@
 <?php
+// Buffer output to prevent "Headers sent" error when config.php calls session_start()
+ob_start();
+
 $host = "127.0.0.1";
 $username = 'root';
 $password = '';
@@ -18,7 +21,11 @@ if ($conn->query($sql) === TRUE) {
 }
 $conn->close();
 
+// Now include config.php which might start a session
 require("config.php");
+
+// Flush the buffer and output everything
+ob_end_flush();
 
 echo "<h1>FoodFusion Database Setup</h1>";
 echo "<p>Starting setup...</p>";
@@ -50,7 +57,6 @@ $recipes = "CREATE TABLE IF NOT EXISTS recipes (
     cuisine_type VARCHAR(100) NOT NULL,
     dietary_preference VARCHAR(100) NOT NULL,
     difficulty TEXT NOT NULL,
-    recipe_type VARCHAR(100) DEFAULT 'official', 
     image VARCHAR(255),
     user_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -121,6 +127,8 @@ if ($connection->query($messages)) {
 
 // Create Default Admin User
 $admin_email = 'root@gmail.com';
+$admin_id = 0;
+
 $check_admin = "SELECT * FROM users WHERE email = '$admin_email'";
 $res_admin = $connection->query($check_admin);
 
@@ -134,16 +142,115 @@ if ($res_admin && $res_admin->num_rows == 0) {
                      VALUES ('$first_name', '$last_name', '$admin_email', '$password', '$type')";
     
     if ($connection->query($insert_admin)) {
+        $admin_id = $connection->insert_id;
         echo "Default Admin User created (root@gmail.com / password).<br>";
     } else {
         echo "Error creating Admin User: " . $connection->error . "<br>";
     }
 } else {
+    $row = $res_admin->fetch_assoc();
+    $admin_id = $row['id'];
     echo "Admin User already exists.<br>";
 }
 
+// --- SEED DATA ---
+echo "<h3>Seeding Data...</h3>";
+
+if ($admin_id == 0) {
+    echo "Skipping seeding: No Admin ID found.<br>";
+} else {
+    $user_id = $admin_id; // USE ADMIN ID FOR SEEDING
+    echo "Using Admin ID ($user_id) for seeding.<br>";
+
+    // Recipes Data
+    $recipes = [
+        [
+            'title' => 'Classic Margherita Pizza',
+            'description' => 'A simple yet delicious classic pizza with fresh basil, mozzarella, and tomato sauce. Perfect for a quick dinner.',
+            'ingredients' => 'Pizza dough, Tomato sauce, Fresh mozzarella cheese, Fresh basil leaves, Olive oil, Salt',
+            'cuisine_type' => 'Italian',
+            'dietary_preference' => 'Vegetarian',
+            'difficulty' => 'Medium',
+            'image' => 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002'
+        ],
+        [
+            'title' => 'Spicy Ramen Bowl',
+            'description' => 'A warming bowl of spicy ramen with soft-boiled eggs, green onions, and savory broth. Comfort food at its best.',
+            'ingredients' => 'Ramen noodles, Chicken or vegetable broth, Soy sauce, Miso paste, Chili oil, Eggs, Green onions, Norisheets',
+            'cuisine_type' => 'Japanese',
+            'dietary_preference' => 'Non-Vegetarian',
+            'difficulty' => 'Hard',
+            'image' => 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624'
+        ],
+        [
+            'title' => 'Avocado Toast Deluxe',
+            'description' => 'Healthy and filling avocado toast topped with cherry tomatoes, radish, and poached eggs. Great for breakfast or brunch.',
+            'ingredients' => 'Wholegrain bread, Ripe avocados, Cherry tomatoes, Radish, Eggs, Lemon juice, Chili flakes, Salt, Pepper',
+            'cuisine_type' => 'American',
+            'dietary_preference' => 'Vegetarian',
+            'difficulty' => 'Easy',
+            'image' => 'https://images.unsplash.com/photo-1541519227354-08fa5d50c44d'
+        ]
+    ];
+
+    foreach ($recipes as $recipe) {
+        // Check if recipe already exists to avoid duplicates
+        $check_recipe = "SELECT id FROM recipes WHERE title = '" . $recipe['title'] . "'";
+        if ($connection->query($check_recipe)->num_rows == 0) {
+            $sql = "INSERT INTO recipes (title, description, ingredients, cuisine_type, dietary_preference, difficulty, image, user_id)
+                    VALUES ('" . $recipe['title'] . "', '" . $recipe['description'] . "', '" . $recipe['ingredients'] . "', 
+                            '" . $recipe['cuisine_type'] . "', '" . $recipe['dietary_preference'] . "', 
+                            '" . $recipe['difficulty'] . "', '" . $recipe['image'] . "', $user_id)";
+            
+            if ($connection->query($sql)) {
+                echo "Added Recipe: " . $recipe['title'] . "<br>";
+            } else {
+                echo "Error adding recipe: " . $connection->error . "<br>";
+            }
+        } else {
+            echo "Recipe already exists: " . $recipe['title'] . "<br>";
+        }
+    }
+
+    // Culinary Resources Data
+    $resources = [
+        [
+            'title' => 'Sustainable Cooking',
+            'description' => 'Learn how to cook with the environment in mind. Discover zero-waste recipes and sustainable ingredient sourcing.',
+            'content' => 'Sustainable cooking is about making choices that benefit your health and the planet. It involves using local, seasonal ingredients, reducing food waste, and choosing plant-based options more often...',
+            'resource_type' => 'Article',
+            'image' => 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09'
+        ],
+        [
+            'title' => 'The Art of Plating',
+            'description' => 'Elevate your dishes with professional plating techniques. Make your food look as good as it tastes.',
+            'content' => 'Plating is an art form that transforms a meal into an experience. Contrast, color, texture, and spacing are key elements...',
+            'resource_type' => 'Guide',
+            'image' => 'https://images.unsplash.com/photo-1556910103-1c02745a30bf'
+        ]
+    ];
+
+    foreach ($resources as $resource) {
+         $check_res = "SELECT id FROM resources WHERE title = '" . $resource['title'] . "'";
+         if ($connection->query($check_res)->num_rows == 0) {
+            $sql = "INSERT INTO resources (title, description, content, file_url, resource_type, user_id)
+                    VALUES ('" . $resource['title'] . "', '" . $resource['description'] . "', 
+                            '" . $resource['content'] . "', '" . $resource['image'] . "', 
+                            '" . $resource['resource_type'] . "', $user_id)";
+            
+            if ($connection->query($sql)) {
+                echo "Added Resource: " . $resource['title'] . "<br>";
+            } else {
+                 echo "Error adding resource: " . $connection->error . "<br>";
+            }
+         } else {
+             echo "Resource already exists: " . $resource['title'] . "<br>";
+         }
+    }
+}
+
 echo "<hr>";
-echo "<p>Database setup completed.</p>";
+echo "<p>Database setup and seeding completed.</p>";
 
 $connection->close();
 ?>
