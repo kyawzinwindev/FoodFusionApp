@@ -38,9 +38,6 @@ include("auth_check.php");
             </thead>
             <tbody>
                 <?php
-                // Show official recipes mainly, or all? Usually manage all here but maybe focus on official?
-                // The prompt separates them. So I'll filter by 'official' here if I want strict separation, 
-                // but usually admins want to see everything. I'll just show 'official' here to keep it distinct from Community Cookbook page.
                 $sql = "SELECT * FROM recipes WHERE recipe_type = 'official' ORDER BY created_at DESC";
                 $result = $connection->query($sql);
                 if ($result->num_rows > 0) {

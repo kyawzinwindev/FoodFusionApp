@@ -28,7 +28,6 @@
     </div>
 </div>
 
-<!-- JS for Modals -->
 <script>
     function openModal(id) {
         document.getElementById(id).style.display = 'flex';
@@ -55,8 +54,5 @@
                 openModal('loginModal');
             });
         }
-        
-        // Mobile login btn if separate
-        // ...
     });
 </script>

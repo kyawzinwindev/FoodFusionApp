@@ -16,8 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // Verify password (assuming simple comparison for now as per previous code, or password_verify if hashed)
-        // Previous controller used password_hash, so use password_verify
         if (password_verify($password, $row['password'])) {
             $_SESSION['id'] = $row['id'];
             $_SESSION['email'] = $row['email'];

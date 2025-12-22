@@ -15,7 +15,7 @@ function uploadImage($file)
     }
 
     // Resolve absolute path
-    $base_dir = realpath(__DIR__ . "/../../"); // Resolves to /.../FoodFusion
+    $base_dir = realpath(__DIR__ . "/../../"); 
     $target_dir_abs = $base_dir . "/uploads/";
 
     // Create directory if missing

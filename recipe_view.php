@@ -41,8 +41,6 @@ $row = $result->fetch_assoc();
             <h2>Ingredients</h2>
             <div class="detail-text detail-text-box"><?php echo $row['ingredients']; ?></div>
         </div>
-
-        <!-- If instructions were separate, show here. Assuming included in description or we only have description/ingredients -->
         
         <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
             <div class="detail-section view-actions">
@@ -58,7 +56,6 @@ $row = $result->fetch_assoc();
     </div>
 
     <?php require("./components/footer.php") ?>
-    <!-- Ensure modal JS works if login needed on header -->
     <script src="./js/app.js"></script>
 </body>
 </html>

@@ -28,8 +28,6 @@
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    // Fix Image Path: If DB has 'uploads/...', ensure we interpret it correctly.
-                    // Assuming this file is in root, 'uploads/' is in root.
                     $image = !empty($row['image']) ? $row['image'] : 'https://placehold.co/600x400?text=No+Image';
                     ?>
                     <div class="card">

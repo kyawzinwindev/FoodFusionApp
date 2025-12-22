@@ -18,7 +18,6 @@ if(!isset($_SESSION['id'])) {
     <div class="form-container section">
         <h2>Share Your Post</h2>
         <form action="./controllers/client/ClientCommunityController.php" method="POST" enctype="multipart/form-data">
-            <!-- Hidden inputs to route correctly or set types -->
             <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?? 1; ?>"> 
             <input type="hidden" name="redirect" value="../../community_cookbook.php">
 

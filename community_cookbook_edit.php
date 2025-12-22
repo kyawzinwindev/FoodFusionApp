@@ -4,9 +4,6 @@ $id = $_GET['id'];
 $sql = "SELECT * FROM community_cookbook WHERE id=$id";
 $result = $connection->query($sql);
 $row = $result->fetch_assoc();
-
-// Security check: ideally check if session user id matches recipe user id
-// if($_SESSION['id'] != $row['user_id']) { header("Location: community_cookbook.php"); exit(); }
 ?>
 <!DOCTYPE html>
 <html lang="en">

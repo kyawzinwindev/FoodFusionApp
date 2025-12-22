@@ -5,7 +5,6 @@ body.admin-body {
     background: #f4f6f9;
 }
 
-
 /* Sidebar */
 .sidebar {
     width: 250px;
@@ -82,7 +81,7 @@ body.admin-body {
     color: #333;
     margin-bottom: 20px;
     position: relative;
-    z-index: 1001; /* Ensure above content */
+    z-index: 1001; 
 }
 
 /* Tables */

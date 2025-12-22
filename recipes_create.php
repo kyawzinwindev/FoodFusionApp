@@ -15,9 +15,6 @@ if(!isset($_SESSION['id'])) { header("Location: index.php"); exit; }
     <div class="form-container section">
         <h2>Add New Recipe</h2>
         <form action="./controllers/client/ClientRecipesController.php" method="POST" enctype="multipart/form-data">
-            <!-- Using Official Controller but forcing type to 'official' or generic? 
-                 The request was for "Recipes" page. If I use AdminRecipesController it adds 'official' type by default or I can pass it. 
-                 Let's stick to 'official' type for the 'Recipes' page as requested. -->
             <input type="hidden" name="recipe_type" value="official">
             <input type="hidden" name="redirect" value="../../recipes.php">
 

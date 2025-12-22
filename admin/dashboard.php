@@ -1,7 +1,5 @@
 <?php
-// Simple session check
 include("../database/config.php");
-// In a real app, check if user is admin. unique logic here or just assuming logged in is enough for demo.
 if (!isset($_SESSION['id'])) {
     header("Location: ../index.php");
     exit();

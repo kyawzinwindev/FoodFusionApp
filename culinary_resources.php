@@ -25,7 +25,6 @@
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     $file_url = !empty($row['file_url']) ? $row['file_url'] : 'https://placehold.co/600x400?text=Resource';
-                    // If it is an image, show it. If PDF/Video, maybe show icon. For simplicity assuming images or generic thumb.
                     $display_img = (strpos($row['file_type'], 'image') !== false || empty($row['file_type'])) ? $file_url : 'https://placehold.co/600x400?text=File';
                     ?>
                     <div class="card">

@@ -85,8 +85,6 @@
         </div>
     </div>
 
-    <!-- Login Popup Removed (Global Modal in Navbar) -->
-
     <script src="./js/app.js"></script>
 </body>
 

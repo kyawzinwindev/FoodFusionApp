@@ -63,7 +63,6 @@ $row = $result->fetch_assoc();
                 <div class="view-actions">
                      <form action="./controllers/client/<?php echo $controller; ?>" method="POST">
                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                        <!-- Redirect back to list, not view, after delete -->
                         <input type="hidden" name="redirect" value="../../<?php echo $row['resource_type']; ?>_resources.php">
                         <button type="submit" name="delete_resource" class="btn-delete btn-view-action" onclick="return confirm('Are you sure?')">Delete Resource</button>
                     </form>

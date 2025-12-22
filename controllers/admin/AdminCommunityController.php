@@ -25,12 +25,7 @@ if (isset($_POST['create_community_recipe'])) {
     // Optional fields based on category
     $ingredients = $_POST['ingredients'] ?? '';
     $content = $_POST['content'] ?? '';
-    $difficulty = $_POST['difficulty'] ?? ''; // Might not be in new schema, checking plan.. 
-    // Plan said: id, title, description, category, ingredients, content, image, user_id. 
-    // Difficulty/Cuisine/Dietary are NOT in the new simplified schema for community_cookbook? 
-    // "For community cookbook, you can add columns based on this 'A collaborative space...'"
-    // Implementation Plan V3 Schema: id, title, description, category, ingredients, content, image, user_id. 
-    // So I will only insert these.
+    $difficulty = $_POST['difficulty'] ?? '';  
 
     // Image Upload
     $image = "";
@@ -64,7 +59,7 @@ if (isset($_POST['update_community_recipe'])) {
     $description = $_POST['description'];
     $ingredients = $_POST['ingredients'] ?? '';
     $content = $_POST['content'] ?? '';
-    $category = $_POST['category']; // Need to retain category or allow update?
+    $category = $_POST['category']; 
     $redirect = $_POST['redirect'] ?? '../../admin/community_cookbook.php';
 
     $sql = "UPDATE community_cookbook SET title='$title', description='$description', ingredients='$ingredients', content='$content', category='$category' WHERE id=$id";
