@@ -1,0 +1,72 @@
+<?php 
+include("../database/config.php"); 
+include("auth_check.php"); 
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Recipes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+    <?php include("sidebar.php"); ?>
+
+    <div class="main-content">
+        <button class="admin-hamburger" id="adminBurger">☰</button>
+        <div class="admin-header">
+            <h1>Manage Recipes</h1>
+            <a href="recipes_create.php" class="admin-btn">Create Recipe</a>
+        </div>
+
+        <?php if(isset($_GET['msg'])): ?>
+            <div class="alert-success"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <?php endif; ?>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Cuisine</th>
+                    <th>Difficulty</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Show official recipes mainly, or all? Usually manage all here but maybe focus on official?
+                // The prompt separates them. So I'll filter by 'official' here if I want strict separation, 
+                // but usually admins want to see everything. I'll just show 'official' here to keep it distinct from Community Cookbook page.
+                $sql = "SELECT * FROM recipes WHERE recipe_type = 'official' ORDER BY created_at DESC";
+                $result = $connection->query($sql);
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['title'] . "</td>";
+                        echo "<td>" . $row['cuisine_type'] . "</td>";
+                        echo "<td>" . $row['difficulty'] . "</td>";
+                        echo "<td>" . $row['recipe_type'] . "</td>";
+                        echo "<td>
+                                <form action='../controllers/admin/AdminRecipesController.php' method='POST' style='display:inline;'>
+                                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                    <button type='submit' name='delete_recipe' class='admin-action-btn delete' onclick='return confirm(\"Are you sure?\")'>Delete</button>
+                                </form>
+                                <a href='recipes_edit.php?id=" . $row['id'] . "' class='admin-action-btn edit'>Update</a>
+                              </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='6'>No recipes found</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
