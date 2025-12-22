@@ -582,6 +582,154 @@ body {
     border: 1px solid #c3e6cb;
 }
 
+/* ---------------- CC, Recipes, Resources PAGES STYLES ---------------- */
+
+/* Page Header */
+.page-header {
+    background: #FF7A30; /* Primary orange */
+    color: white;
+    text-align: center;
+    padding: 100px 20px 40px; 
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.create-btn {
+    display: inline-block;
+    background: white;
+    color: #FF7A30;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.create-btn:hover {
+    background: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+/* Container */
+.container.section {
+    padding: 20px 10%;
+    min-height: 60vh;
+}
+
+/* Card Grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Generic Card */
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+.badge {
+    background: #FF7A30;
+    color: white;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 15px;
+    align-self: flex-start;
+}
+
+.meta-info {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Pushes actions down */
+}
+
+/* Card Actions */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.btn-edit, .btn-delete, .btn-link {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-edit {
+    background: #e0f2f1;
+    color: #00796b;
+}
+
+.btn-delete {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.btn-link {
+    background: #FF7A30;
+    color: white;
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+}
+
 /* Animation */
 @keyframes fadeIn {
   from {
