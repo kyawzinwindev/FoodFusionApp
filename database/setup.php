@@ -171,7 +171,7 @@ if ($admin_id == 0) {
             'cuisine_type' => 'Italian',
             'dietary_preference' => 'Vegetarian',
             'difficulty' => 'Medium',
-            'image' => 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002'
+            'image' => 'resources/recipe1.jpg'
         ],
         [
             'title' => 'Spicy Ramen Bowl',
@@ -180,7 +180,7 @@ if ($admin_id == 0) {
             'cuisine_type' => 'Japanese',
             'dietary_preference' => 'Non-Vegetarian',
             'difficulty' => 'Hard',
-            'image' => 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624'
+            'image' => 'resources/recipe2.jpg'
         ],
         [
             'title' => 'Avocado Toast Deluxe',
@@ -189,7 +189,7 @@ if ($admin_id == 0) {
             'cuisine_type' => 'American',
             'dietary_preference' => 'Vegetarian',
             'difficulty' => 'Easy',
-            'image' => 'https://images.unsplash.com/photo-1541519227354-08fa5d50c44d'
+            'image' => 'resources/recipe3.jpg'
         ]
     ];
 
@@ -208,7 +208,10 @@ if ($admin_id == 0) {
                 echo "Error adding recipe: " . $connection->error . "<br>";
             }
         } else {
-            echo "Recipe already exists: " . $recipe['title'] . "<br>";
+            // Update image if needed (Quick Fix for User's issue without re-seeding completely)
+             $update_img = "UPDATE recipes SET image = '" . $recipe['image'] . "' WHERE title = '" . $recipe['title'] . "'";
+             $connection->query($update_img);
+             echo "Recipe exists (Image Updated): " . $recipe['title'] . "<br>";
         }
     }
 
@@ -218,15 +221,15 @@ if ($admin_id == 0) {
             'title' => 'Sustainable Cooking',
             'description' => 'Learn how to cook with the environment in mind. Discover zero-waste recipes and sustainable ingredient sourcing.',
             'content' => 'Sustainable cooking is about making choices that benefit your health and the planet. It involves using local, seasonal ingredients, reducing food waste, and choosing plant-based options more often...',
-            'resource_type' => 'Article',
-            'image' => 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09'
+            'resource_type' => 'culinary',
+            'image' => 'resources/trend1.jpg'
         ],
         [
             'title' => 'The Art of Plating',
             'description' => 'Elevate your dishes with professional plating techniques. Make your food look as good as it tastes.',
             'content' => 'Plating is an art form that transforms a meal into an experience. Contrast, color, texture, and spacing are key elements...',
-            'resource_type' => 'Guide',
-            'image' => 'https://images.unsplash.com/photo-1556910103-1c02745a30bf'
+            'resource_type' => 'culinary',
+            'image' => 'resources/trend2.jpg'
         ]
     ];
 
@@ -244,7 +247,10 @@ if ($admin_id == 0) {
                  echo "Error adding resource: " . $connection->error . "<br>";
             }
          } else {
-             echo "Resource already exists: " . $resource['title'] . "<br>";
+             // Update image if needed
+             $update_img = "UPDATE resources SET file_url = '" . $resource['image'] . "', resource_type = '" . $resource['resource_type'] . "' WHERE title = '" . $resource['title'] . "'";
+             $connection->query($update_img);
+             echo "Resource exists (Image Updated): " . $resource['title'] . "<br>";
          }
     }
 }
