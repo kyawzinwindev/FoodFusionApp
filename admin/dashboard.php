@@ -10,7 +10,6 @@ if (!isset($_SESSION['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body class="admin-body">
