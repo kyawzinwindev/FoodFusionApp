@@ -14,11 +14,15 @@
     <ul class="navbar-links" id="navbarMenu">
         <li><a href="./index.php">Home</a></li>
         <li><a href="./about.php">About</a></li>
-        <li><a href="./community_cookbook.php">Community Cookbook</a></li>
-        <li><a href="./contact.php">Contact Us</a></li>
-
+        
         <?php if(isset($_SESSION['id'])): ?>
             <li><a href="./recipes.php">Recipes</a></li>
+        <?php endif; ?>
+
+        <li><a href="./community_cookbook.php">Community Cookbook</a></li>
+        <li><a href="./contact.php">Contact Us</a></li>
+        
+        <?php if(isset($_SESSION['id'])): ?>
             <li><a href="./culinary_resources.php">Culinary Resources</a></li>
             <li><a href="./educational_resources.php">Educational Resources</a></li>
         <?php endif; ?>
