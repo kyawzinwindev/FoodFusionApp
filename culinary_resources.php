@@ -37,7 +37,7 @@
                 $sql .= " AND (title LIKE '%$search%' OR description LIKE '%$search%')";
             }
             
-            $sql .= " ORDER BY created_at DESC";
+            $sql .= " ORDER BY id DESC";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {

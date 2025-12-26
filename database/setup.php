@@ -205,7 +205,7 @@ if ($admin_id == 0) {
                 echo "Error adding recipe: " . $connection->error . "<br>";
             }
         } else {
-            // Update image if needed (Quick Fix for User's issue without re-seeding completely)
+            // Update image if needed 
              $update_img = "UPDATE recipes SET image = '" . $recipe['image'] . "' WHERE title = '" . $recipe['title'] . "'";
              $connection->query($update_img);
              echo "Recipe exists (Image Updated): " . $recipe['title'] . "<br>";
@@ -227,6 +227,36 @@ if ($admin_id == 0) {
             'content' => 'Plating is an art form that transforms a meal into an experience. Contrast, color, texture, and spacing are key elements...',
             'resource_type' => 'culinary',
             'image' => 'resources/trend2.jpg'
+        ],
+        [
+            'title' => 'Mastering the Wok',
+            'description' => 'Techniques for stir-frying and smoking. Essential skills for authentic Asian cuisine.',
+            'content' => 'The wok is a versatile tool that can stir-fry, steam, deep-fry, and smoke. The key is high heat (wok hei) and constant movement...',
+            'resource_type' => 'culinary',
+            'image' => 'resources/trend3.jpg'
+        ],
+        
+        // Educational Resources
+         [
+            'title' => 'The Science of Baking',
+            'description' => 'Understanding gluten, yeast, and fermentation. Why your bread rises and your cakes fall.',
+            'content' => 'Baking is chemistry. Understanding the role of each ingredient—flour provides structure (gluten), sugar keeps it tender and retains moisture, eggs bind and leaven...',
+            'resource_type' => 'educational',
+            'image' => 'resources/edu1.jpg'
+        ],
+        [
+            'title' => 'History of Street Food',
+            'description' => 'A journey through the origins of popular street foods from around the world.',
+            'content' => 'Street food is the heart of many cultures. From Roman thermopolia to modern food trucks, it offers a glimpse into daily life and local flavors...',
+            'resource_type' => 'educational',
+            'image' => 'resources/edu2.jpg'
+        ],
+        [
+            'title' => 'Nutrition Basics: Macros vs Micros',
+            'description' => 'A guide to understanding what is on your plate. Balancing proteins, fats, and carbs.',
+            'content' => 'Macronutrients (carbs, fats, proteins) provide energy, while micronutrients (vitamins, minerals) support bodily functions. A balanced diet needs both...',
+            'resource_type' => 'educational',
+            'image' => 'resources/edu3.jpg'
         ]
     ];
 
