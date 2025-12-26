@@ -1,5 +1,4 @@
 <?php
-// Buffer output to prevent "Headers sent" error when config.php calls session_start()
 ob_start();
 
 $host = "127.0.0.1";
@@ -21,10 +20,8 @@ if ($conn->query($sql) === TRUE) {
 }
 $conn->close();
 
-// Now include config.php which might start a session
 require("config.php");
 
-// Flush the buffer and output everything
 ob_end_flush();
 
 echo "<h1>FoodFusion Database Setup</h1>";
