@@ -26,6 +26,13 @@ $row = $result->fetch_assoc();
             <div class="resource-preview">
                 <?php if(strpos($row['file_type'], 'image') !== false || empty($row['file_type'])): ?>
                     <img src="<?php echo $row['file_url']; ?>" alt="Resource">
+                <?php elseif(strpos($row['file_type'], 'video') !== false): ?>
+                    <video controls style="width: 100%; max-height: 500px; border-radius: 8px;">
+                        <source src="<?php echo $row['file_url']; ?>" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                <?php elseif(strpos($row['file_type'], 'pdf') !== false): ?>
+                    <embed src="<?php echo $row['file_url']; ?>" type="application/pdf" width="100%" height="600px" style="border-radius: 8px;">
                 <?php else: ?>
                     <div class="resource-icon-placeholder">
                         📄 <?php echo ucfirst($row['file_type']); ?> File

@@ -47,9 +47,14 @@
                     ?>
                     <div class="card">
                         <a href="resource_view.php?id=<?php echo $row['id']; ?>">
-                            <img src="<?php echo $display_img; ?>" alt="<?php echo $row['title']; ?>">
+                            <?php if(strpos($row['file_type'], 'video') !== false): ?>
+                                 <video src="<?php echo $row['file_url']; ?>" style="width:100%; height:200px; object-fit:cover;"></video>
+                            <?php else: ?>
+                                <img src="<?php echo $display_img; ?>" alt="<?php echo $row['title']; ?>">
+                            <?php endif; ?>
                         </a>
                         <div class="card-body">
+                            <span class="badge"><?php echo ucfirst(!empty($row['file_type']) ? $row['file_type'] : 'image'); ?></span>
                             <h3><a href="resource_view.php?id=<?php echo $row['id']; ?>" style="text-decoration:none; color:inherit;"><?php echo $row['title']; ?></a></h3>
                             <p><?php echo substr($row['description'], 0, 100) . '...'; ?></p>
                             <a href="resource_view.php?id=<?php echo $row['id']; ?>" class="btn-link">View Resource</a>

@@ -20,9 +20,9 @@
             <p>FoodFusion is a vibrant culinary platform built to inspire creativity in every kitchen. Our mission is to bring food lovers together by offering diverse recipes, helpful cooking tips, and a welcoming space for home chefs to share their passion. We celebrate global flavors, encourage community-driven cooking, and empower individuals to explore, learn, and grow through food.</p>
             
             <div class="about-socials">
-                <a href="#"><img src="resources/icon_fb.png" alt="Facebook"></a>
-                <a href="#"><img src="resources/icon_insta.png" alt="Instagram"></a>
-                <a href="#"><img src="resources/icon_twitter.png" alt="Twitter"></a>
+                <a href="https://www.facebook.com/FoodFusionPK/"><img src="resources/icon_fb.png" alt="Facebook"></a>
+                <a href="https://www.instagram.com/foodfusionpk/"><img src="resources/icon_insta.png" alt="Instagram"></a>
+                <a href="https://twitter.com/foodfusionpk"><img src="resources/icon_twitter.png" alt="Twitter"></a>
             </div>
         </div>
         <img src="resources/about_main.jpg" class="intro-img">
