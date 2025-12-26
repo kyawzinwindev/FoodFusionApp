@@ -97,7 +97,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 888;     /* stay above any content */
+  z-index: 888;    
 }
 
 .navbar-left {
@@ -283,15 +283,15 @@ body {
   font-size: 14px;
   color: #666;
   margin-bottom: 20px;
-  min-height: 40px; /* Ensure alignment */
+  min-height: 40px; 
 }
 
 /* Meta Info Container */
 .meta-info-centered {
     display: flex;
-    justify-content: space-around; /* Space Around */
+    justify-content: space-around;
     align-items: center;
-    margin-top: auto; /* Push to bottom if flex column */
+    margin-top: auto; 
     padding-top: 10px;
     border-top: 1px solid #eee;
 }
@@ -309,7 +309,7 @@ body {
 }
 
 .carousel {
-  max-width: 1000px; /* Expanded Width */
+  max-width: 1000px; 
   margin: 0 auto;
   position: relative;
 }
@@ -321,7 +321,6 @@ body {
 .slide img {
   width: 100%;
   border-radius: 12px;
-  /* Fixed height and landscape aspect */
   height: 500px; 
   object-fit: cover;
 }
@@ -585,7 +584,7 @@ body {
 /* ---------------- POLICY PAGES ---------------- */
 .policy-section {
   padding: 80px 10%;
-  margin-top: 80px; /* for fixed navbar */
+  margin-top: 80px; 
   background: #fff;
 }
 
@@ -629,7 +628,7 @@ body {
 /* Forms */
 .form-container {
     max-width: 800px;
-    margin: 100px auto 40px; /* Centered with top offset */
+    margin: 100px auto 40px; 
     background: white;
     padding: 40px;
     border-radius: 20px;
@@ -709,7 +708,7 @@ body {
 
 /* Page Header */
 .page-header {
-    background: #FF7A30; /* Primary orange */
+    background: #FF7A30; 
     color: white;
     text-align: center;
     padding: 100px 20px 40px; 
@@ -813,7 +812,7 @@ body {
     font-size: 0.95rem;
     line-height: 1.5;
     margin-bottom: 20px;
-    flex-grow: 1; /* Pushes actions down */
+    flex-grow: 1; 
 }
 
 /* Difficulty Badges */
@@ -825,16 +824,16 @@ body {
     color: white;
     text-transform: uppercase;
 }
-.badge-diff.easy { background-color: #2ecc71; } /* Green */
-.badge-diff.medium { background-color: #f1c40f; color: #333; } /* Yellow */
-.badge-diff.hard { background-color: #e74c3c; } /* Red */
+.badge-diff.easy { background-color: #2ecc71; } 
+.badge-diff.medium { background-color: #f1c40f; color: #333; }
+.badge-diff.hard { background-color: #e74c3c; } 
 
 /* Dietary Badge */
 .badge-diet {
     padding: 4px 10px;
     border-radius: 15px;
     font-size: 0.75rem;
-    background-color: #95a5a6; /* Gray */
+    background-color: #95a5a6; 
     color: white;
     text-transform: uppercase;
 }
@@ -1197,7 +1196,7 @@ body {
 .filter-select {
     flex: 1;
     padding: 12px 18px;
-    padding-right: 40px; /* Space for the arrow */
+    padding-right: 40px; 
     border: 1px solid #ddd;
     border-radius: 30px;
     font-size: 16px;

@@ -43,10 +43,10 @@ window.onclick = (e) => {
 };
 
 // CAROUSEL AUTO SLIDE
-
 let index = 0;
 const slides = document.querySelectorAll(".slide");
 const dotsContainer = document.getElementById("carouselDots");
+
 // CREATE DOTS
 slides.forEach((_, i) => {
   const dot = document.createElement("span");
@@ -57,7 +57,9 @@ slides.forEach((_, i) => {
   });
   dotsContainer.appendChild(dot);
 });
+
 const dots = document.querySelectorAll("#carouselDots span");
+
 function rotate() {
   slides.forEach((s, i) => {
     s.style.display = i === index ? "block" : "none";
@@ -69,11 +71,14 @@ function rotate() {
 }
 setInterval(rotate, 3000);
 rotate();
+
+// COOKIE CONSENT
 const cookieBar = document.getElementById("cookieConsent");
 const acceptBtn = document.getElementById("acceptCookieBtn");
 function hasAcceptedCookies() {
   return sessionStorage.getItem("cookiesAccepted") === "true";
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   if (hasAcceptedCookies()) {
     cookieBar.style.display = "none";
@@ -81,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cookieBar.style.display = "block";
   }
 });
+
 acceptBtn.addEventListener("click", function () {
   sessionStorage.setItem("cookiesAccepted", "true");
   cookieBar.style.opacity = "1";
@@ -95,11 +101,13 @@ acceptBtn.addEventListener("click", function () {
   };
   fadeOut();
 });
+
 function resetCookieConsent() {
   sessionStorage.removeItem("cookiesAccepted");
   cookieBar.style.display = "block";
   cookieBar.style.opacity = "1";
 }
+
 function showCookieBanner() {
   sessionStorage.removeItem("cookiesAccepted");
   cookieBar.style.display = "block";

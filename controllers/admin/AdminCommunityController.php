@@ -18,7 +18,7 @@ if (isset($_POST['delete_community_recipe'])) {
 if (isset($_POST['create_community_recipe'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $category = $_POST['category'] ?? 'recipe'; // recipe, tip, experience
+    $category = $_POST['category'] ?? 'recipe'; 
     $user_id = $_POST['user_id'] ?? 1; 
     $redirect = $_POST['redirect'] ?? '../../admin/community_cookbook.php';
 

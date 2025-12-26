@@ -43,9 +43,7 @@
                     
                     // Logic for Link
                     $recipeHref = "javascript:void(0)";
-                    $recipeOnclick = "openModal('registerModal')"; // Using registerModal or loginModal? User said "login modal". 
-                    // Wait, previous code used registerModal for "Join Us" and loginModal for others. User said "open the login modal".
-                    // I will use 'loginModal'.
+                    $recipeOnclick = "openModal('registerModal')"; 
                     
                     if(isset($_SESSION['id'])) {
                         $recipeHref = "recipes.php";

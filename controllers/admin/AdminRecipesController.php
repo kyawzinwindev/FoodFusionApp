@@ -1,9 +1,6 @@
 <?php
 include("../../database/config.php");
 
-// Set default recipe type if not coming from a specific form (e.g. general admin add)
-$default_type = 'official'; 
-
 // Handle Delete
 if (isset($_POST['delete_recipe'])) {
     $id = $_POST['id'];
@@ -25,7 +22,7 @@ if (isset($_POST['create_recipe'])) {
     $cuisine_type = $_POST['cuisine_type'];
     $dietary_preference = $_POST['dietary_preference'];
     $difficulty = $_POST['difficulty'];
-    $user_id = $_POST['user_id'] ?? 1; // Default admin user ID if not logged in context
+    $user_id = $_POST['user_id'] ?? 1; 
     $redirect = $_POST['redirect'] ?? '../../admin/recipes.php';
 
     // Image Upload
