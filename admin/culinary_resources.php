@@ -25,6 +25,17 @@ include("auth_check.php");
             <div class="alert-success"><?php echo htmlspecialchars($_GET['msg']); ?></div>
         <?php endif; ?>
 
+        <!-- Admin Search -->
+        <div style="margin-bottom: 20px; text-align: right;">
+            <form method="GET" action="culinary_resources.php" style="display: inline-block;">
+                <input type="text" name="search" placeholder="Search title, description..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" style="padding: 8px; margin-right: 5px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+                <button type="submit" class="admin-btn" style="padding: 8px 15px; font-size: 14px;">Search</button>
+                <?php if(isset($_GET['search'])): ?>
+                    <a href="culinary_resources.php" class="admin-btn" style="padding: 8px 15px; font-size: 14px; background: #666; margin-left: 5px; text-decoration:none;">Clear</a>
+                <?php endif; ?>
+            </form>
+        </div>
+
         <table class="admin-table">
             <thead>
                 <tr>
@@ -36,7 +47,12 @@ include("auth_check.php");
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT * FROM resources WHERE resource_type = 'culinary' ORDER BY created_at DESC";
+                $sql = "SELECT * FROM resources WHERE resource_type = 'culinary'";
+                if (!empty($_GET['search'])) {
+                    $search = $connection->real_escape_string($_GET['search']);
+                    $sql .= " AND (title LIKE '%$search%' OR description LIKE '%$search%')";
+                }
+                $sql .= " ORDER BY created_at DESC";
                 $result = $connection->query($sql);
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {

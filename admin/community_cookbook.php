@@ -25,6 +25,23 @@ include("auth_check.php");
             <div class="alert-success"><?php echo htmlspecialchars($_GET['msg']); ?></div>
         <?php endif; ?>
 
+        <!-- Admin Search & Filter -->
+        <div style="margin-bottom: 20px; text-align: right;">
+            <form method="GET" action="community_cookbook.php" style="display: inline-block;">
+                <input type="text" name="search" placeholder="Search..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" style="padding: 8px; margin-right: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                <select name="category" style="padding: 8px; margin-right: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                    <option value="">All Categories</option>
+                    <option value="recipe" <?php if(isset($_GET['category']) && $_GET['category'] == 'recipe') echo 'selected'; ?>>Recipe</option>
+                    <option value="tip" <?php if(isset($_GET['category']) && $_GET['category'] == 'tip') echo 'selected'; ?>>Cooking Tip</option>
+                    <option value="experience" <?php if(isset($_GET['category']) && $_GET['category'] == 'experience') echo 'selected'; ?>>Culinary Experience</option>
+                </select>
+                <button type="submit" class="admin-btn" style="padding: 8px 15px; font-size: 14px;">Search</button>
+                <?php if(isset($_GET['search']) || isset($_GET['category'])): ?>
+                    <a href="community_cookbook.php" class="admin-btn" style="padding: 8px 15px; font-size: 14px; background: #666; margin-left: 5px; text-decoration:none;">Clear</a>
+                <?php endif; ?>
+            </form>
+        </div>
+
         <table class="admin-table">
             <thead>
                 <tr>
@@ -37,7 +54,21 @@ include("auth_check.php");
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT * FROM community_cookbook ORDER BY created_at DESC";
+                $where_clauses = [];
+                if (!empty($_GET['search'])) {
+                    $search = $connection->real_escape_string($_GET['search']);
+                    $where_clauses[] = "(title LIKE '%$search%' OR description LIKE '%$search%' OR ingredients LIKE '%$search%' OR content LIKE '%$search%')";
+                }
+                if (!empty($_GET['category'])) {
+                    $category = $connection->real_escape_string($_GET['category']);
+                    $where_clauses[] = "category = '$category'";
+                }
+
+                $sql = "SELECT * FROM community_cookbook";
+                if (!empty($where_clauses)) {
+                    $sql .= " WHERE " . implode(" AND ", $where_clauses);
+                }
+                $sql .= " ORDER BY created_at DESC";
                 $result = $connection->query($sql);
                 if ($result && $result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {

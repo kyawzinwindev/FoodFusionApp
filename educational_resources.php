@@ -17,9 +17,27 @@
     </div>
 
     <div class="container section">
+        <!-- Search -->
+        <div class="search-filter-container">
+            <form method="GET" action="educational_resources.php" class="search-form" style="justify-content:center;">
+                <input type="text" name="search" class="search-input" placeholder="Search by title, description..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" style="flex:1; max-width:600px;">
+                <button type="submit" class="search-btn">Search</button>
+                <?php if(isset($_GET['search'])): ?>
+                    <a href="educational_resources.php" class="search-btn" style="background:#777; text-decoration:none; display:flex; align-items:center;">Clear</a>
+                <?php endif; ?>
+            </form>
+        </div>
+
         <div class="card-grid">
             <?php
-            $sql = "SELECT * FROM resources WHERE resource_type = 'educational' ORDER BY created_at DESC";
+            $sql = "SELECT * FROM resources WHERE resource_type = 'educational'";
+            
+            if (!empty($_GET['search'])) {
+                $search = $connection->real_escape_string($_GET['search']);
+                $sql .= " AND (title LIKE '%$search%' OR description LIKE '%$search%')";
+            }
+            
+            $sql .= " ORDER BY created_at DESC";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {

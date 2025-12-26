@@ -21,10 +21,43 @@
     </div>
 
     <div class="container section">
+        <!-- Search & Filter -->
+        <div class="search-filter-container">
+            <form method="GET" action="recipes.php" class="search-form">
+                <input type="text" name="search" class="search-input" placeholder="Search by title, ingredients..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                <select name="cuisine_type" class="filter-select">
+                    <option value="">All Cuisines</option>
+                    <option value="Italian" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Italian') echo 'selected'; ?>>Italian</option>
+                    <option value="Asian" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Asian') echo 'selected'; ?>>Asian</option>
+                    <option value="Mexican" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Mexican') echo 'selected'; ?>>Mexican</option>
+                    <option value="American" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'American') echo 'selected'; ?>>American</option>
+                    <option value="Other" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Other') echo 'selected'; ?>>Other</option>
+                </select>
+                <button type="submit" class="search-btn">Search</button>
+                <?php if(isset($_GET['search']) || isset($_GET['cuisine_type'])): ?>
+                    <a href="recipes.php" class="search-btn" style="background:#777; text-decoration:none; display:flex; align-items:center;">Clear</a>
+                <?php endif; ?>
+            </form>
+        </div>
+
         <div class="card-grid">
             <?php
             // Show all recipes
-            $sql = "SELECT * FROM recipes ORDER BY created_at DESC";
+            $where_clauses = [];
+            if (!empty($_GET['search'])) {
+                $search = $connection->real_escape_string($_GET['search']);
+                $where_clauses[] = "(title LIKE '%$search%' OR description LIKE '%$search%' OR ingredients LIKE '%$search%')";
+            }
+            if (!empty($_GET['cuisine_type'])) {
+                $cuisine = $connection->real_escape_string($_GET['cuisine_type']);
+                $where_clauses[] = "cuisine_type = '$cuisine'";
+            }
+
+            $sql = "SELECT * FROM recipes";
+            if (!empty($where_clauses)) {
+                $sql .= " WHERE " . implode(" AND ", $where_clauses);
+            }
+            $sql .= " ORDER BY created_at DESC";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {

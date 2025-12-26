@@ -21,9 +21,40 @@
     </div>
 
     <div class="container section">
+        <!-- Search & Filter -->
+        <div class="search-filter-container">
+            <form method="GET" action="community_cookbook.php" class="search-form">
+                <input type="text" name="search" class="search-input" placeholder="Search by title, ingredients, content..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                <select name="category" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="recipe" <?php if(isset($_GET['category']) && $_GET['category'] == 'recipe') echo 'selected'; ?>>Recipe</option>
+                    <option value="tip" <?php if(isset($_GET['category']) && $_GET['category'] == 'tip') echo 'selected'; ?>>Cooking Tip</option>
+                    <option value="experience" <?php if(isset($_GET['category']) && $_GET['category'] == 'experience') echo 'selected'; ?>>Culinary Experience</option>
+                </select>
+                <button type="submit" class="search-btn">Search</button>
+                <?php if(isset($_GET['search']) || isset($_GET['category'])): ?>
+                    <a href="community_cookbook.php" class="search-btn" style="background:#777; text-decoration:none; display:flex; align-items:center;">Clear</a>
+                <?php endif; ?>
+            </form>
+        </div>
+
         <div class="card-grid">
             <?php
-            $sql = "SELECT * FROM community_cookbook ORDER BY created_at DESC";
+            $where_clauses = [];
+            if (!empty($_GET['search'])) {
+                $search = $connection->real_escape_string($_GET['search']);
+                $where_clauses[] = "(title LIKE '%$search%' OR description LIKE '%$search%' OR ingredients LIKE '%$search%' OR content LIKE '%$search%')";
+            }
+            if (!empty($_GET['category'])) {
+                $category = $connection->real_escape_string($_GET['category']);
+                $where_clauses[] = "category = '$category'";
+            }
+
+            $sql = "SELECT * FROM community_cookbook";
+            if (!empty($where_clauses)) {
+                $sql .= " WHERE " . implode(" AND ", $where_clauses);
+            }
+            $sql .= " ORDER BY created_at DESC";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {
