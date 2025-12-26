@@ -9,7 +9,6 @@
 body {
   background: #f8f8f8;
 }
-  /* Update CSS to support ZigZag and wide carousel */
   
 /* Culinary Trends Section */
 .culinary-trends {
@@ -244,7 +243,9 @@ body {
 
 .recipe-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap; 
 }
 
 .recipe-card {
