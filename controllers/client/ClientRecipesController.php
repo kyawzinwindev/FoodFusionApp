@@ -16,7 +16,7 @@ function uploadImage($file)
 
     // Resolve absolute path
     $base_dir = realpath(__DIR__ . "/../../"); 
-    $target_dir_abs = $base_dir . "/uploads/";
+    $target_dir_abs = $base_dir . "/uploads/recipes/";
 
     // Create directory if missing
     if (!file_exists($target_dir_abs)) {
@@ -29,7 +29,7 @@ function uploadImage($file)
     $target_file_abs = $target_dir_abs . $filename;
 
     if (move_uploaded_file($file["tmp_name"], $target_file_abs)) {
-        return "uploads/" . $filename;
+        return "uploads/recipes/" . $filename;
     } else {
         die("Error uploading file to destination: " . $target_file_abs . " (Check permissions)");
     }

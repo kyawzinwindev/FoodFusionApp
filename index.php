@@ -194,7 +194,7 @@
             </div>
             <div class="zigzag-content">
                 <h3><?php echo $trend['title']; ?></h3>
-                <p><?php echo substr($trend['description'], 0, 150) . '...'; ?></p>
+                <p><?php echo substr($trend['content'], 0, 250) . '...'; ?></p>
                 <button class="join-btn" onclick="<?php echo $trendAction; ?>">Explore</button>
             </div>
         </div>
@@ -205,12 +205,13 @@
              $static_trends = [
                 [
                     'title' => 'Sustainable Cooking',
-                    'description' => 'Learn how to cook with the environment in mind. Discover zero-waste recipes and sustainable ingredient sourcing.',
+                    'content' => 'Sustainable cooking is not just a trend; it is a necessary shift towards a healthier planet and a more mindful lifestyle. It involves sourcing ingredients locally to reduce carbon footprints, choosing seasonal produce to support local farmers, and minimizing food waste through creative cooking techniques. By embracing plant-based meals and energy-efficient cooking methods, we can significantly lower our environmental impact while enjoying fresh, nutritious, and delicious food. It is about making conscious choices in the kitchen that resonate with the rhythm of nature.',
                     'file_url' => 'resources/trend1.jpg'
                 ],
                 [
                     'title' => 'The Art of Plating',
-                    'description' => 'Elevate your dishes with professional plating techniques. Make your food look as good as it tastes.',
+                    'content' => 'Elevate your dishes with professional plating techniques.',
+            'content' => 'The art of plating is where culinary skills meet visual artistry. A well-plated dish engages the diner\'s senses before they even take the first bite. It relies on the balance of colors, textures, and negative space to create a visually appealing composition. Techniques such as the rule of thirds, using contrasting colors, and garnishing with precision can transform a simple meal into a gourmet experience. Whether it is a rustic arrangement or a minimalistic design, plating tells a story and sets the tone for the dining experience.',
                     'file_url' => 'resources/trend2.jpg'
                 ]
              ];
@@ -230,7 +231,7 @@
             </div>
             <div class="zigzag-content">
                 <h3><?php echo $trend['title']; ?></h3>
-                <p><?php echo substr($trend['description'], 0, 150) . '...'; ?></p>
+                <p><?php echo substr($trend['content'], 0, 250) . '...'; ?></p>
                 <button class="join-btn" onclick="<?php echo $trendAction; ?>">Explore</button>
             </div>
         </div>

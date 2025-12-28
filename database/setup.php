@@ -140,7 +140,7 @@ if ($connection->query($comments)) {
 }
 
 // Create Default Admin User
-$admin_email = 'root@gmail.com';
+$admin_email = 'admin@gmail.com';
 $admin_id = 0;
 
 $check_admin = "SELECT * FROM users WHERE email = '$admin_email'";
@@ -157,7 +157,7 @@ if ($res_admin && $res_admin->num_rows == 0) {
     
     if ($connection->query($insert_admin)) {
         $admin_id = $connection->insert_id;
-        echo "Default Admin User created (root@gmail.com / password).<br>";
+        echo "Default Admin User created ($admin_email / password).<br>";
     } else {
         echo "Error creating Admin User: " . $connection->error . "<br>";
     }
@@ -167,14 +167,42 @@ if ($res_admin && $res_admin->num_rows == 0) {
     echo "Admin User already exists.<br>";
 }
 
+// Create Demo User (John Doe)
+$demo_email = 'johndoe@gmail.com';
+$demo_id = 0;
+
+$check_demo = "SELECT * FROM users WHERE email = '$demo_email'";
+$res_demo = $connection->query($check_demo);
+
+if ($res_demo && $res_demo->num_rows == 0) {
+    $first_name = 'John';
+    $last_name = 'Doe';
+    $password = password_hash('password', PASSWORD_DEFAULT);
+    $type = 'user';
+
+    $insert_demo = "INSERT INTO users (first_name, last_name, email, password, type) 
+                     VALUES ('$first_name', '$last_name', '$demo_email', '$password', '$type')";
+    
+    if ($connection->query($insert_demo)) {
+        $demo_id = $connection->insert_id;
+        echo "Demo User created ($demo_email / password).<br>";
+    } else {
+        echo "Error creating Demo User: " . $connection->error . "<br>";
+    }
+} else {
+    $row = $res_demo->fetch_assoc();
+    $demo_id = $row['id'];
+    echo "Demo User already exists.<br>";
+}
+
 // --- SEED DATA ---
 echo "<h3>Seeding Data...</h3>";
 
-if ($admin_id == 0) {
-    echo "Skipping seeding: No Admin ID found.<br>";
+if ($demo_id == 0) {
+    echo "Skipping seeding: No Demo User ID found.<br>";
 } else {
-    $user_id = $admin_id; // USE ADMIN ID FOR SEEDING
-    echo "Using Admin ID ($user_id) for seeding.<br>";
+    $user_id = $demo_id; // USE DEMO ID FOR SEEDING
+    echo "Using Demo ID ($user_id) for seeding content.<br>";
 
     // Recipes Data
     $recipes = [
@@ -185,7 +213,7 @@ if ($admin_id == 0) {
             'cuisine_type' => 'Italian',
             'dietary_preference' => 'Vegetarian',
             'difficulty' => 'Medium',
-            'image' => 'resources/recipe1.jpg'
+            'image' => 'uploads/recipes/recipe1.jpg'
         ],
         [
             'title' => 'Spicy Ramen Bowl',
@@ -194,7 +222,7 @@ if ($admin_id == 0) {
             'cuisine_type' => 'Japanese',
             'dietary_preference' => 'Non-Vegetarian',
             'difficulty' => 'Hard',
-            'image' => 'resources/recipe2.jpg'
+            'image' => 'uploads/recipes/recipe2.jpg'
         ],
         [
             'title' => 'Avocado Toast Deluxe',
@@ -203,18 +231,23 @@ if ($admin_id == 0) {
             'cuisine_type' => 'American',
             'dietary_preference' => 'Vegetarian',
             'difficulty' => 'Easy',
-            'image' => 'resources/recipe3.jpg'
+            'image' => 'uploads/recipes/recipe3.jpg'
         ]
     ];
 
     foreach ($recipes as $recipe) {
+        $title = addslashes($recipe['title']);
+        $description = addslashes($recipe['description']);
+        $ingredients = addslashes($recipe['ingredients']);
+        $image = $recipe['image'];
+
         // Check if recipe already exists to avoid duplicates
-        $check_recipe = "SELECT id FROM recipes WHERE title = '" . $recipe['title'] . "'";
+        $check_recipe = "SELECT id FROM recipes WHERE title = '$title'";
         if ($connection->query($check_recipe)->num_rows == 0) {
             $sql = "INSERT INTO recipes (title, description, ingredients, cuisine_type, dietary_preference, difficulty, image, user_id)
-                    VALUES ('" . $recipe['title'] . "', '" . $recipe['description'] . "', '" . $recipe['ingredients'] . "', 
+                    VALUES ('$title', '$description', '$ingredients', 
                             '" . $recipe['cuisine_type'] . "', '" . $recipe['dietary_preference'] . "', 
-                            '" . $recipe['difficulty'] . "', '" . $recipe['image'] . "', $user_id)";
+                            '" . $recipe['difficulty'] . "', '$image', $user_id)";
             
             if ($connection->query($sql)) {
                 echo "Added Recipe: " . $recipe['title'] . "<br>";
@@ -223,66 +256,98 @@ if ($admin_id == 0) {
             }
         } else {
             // Update image if needed 
-             $update_img = "UPDATE recipes SET image = '" . $recipe['image'] . "' WHERE title = '" . $recipe['title'] . "'";
+             $update_img = "UPDATE recipes SET image = '$image', user_id = $user_id WHERE title = '$title'";
              $connection->query($update_img);
-             echo "Recipe exists (Image Updated): " . $recipe['title'] . "<br>";
+             echo "Recipe exists (Image/User Updated): " . $recipe['title'] . "<br>";
         }
     }
 
-    // Culinary Resources Data
+    // Community Cookbook Data (New Seeding)
+    $community_posts = [
+        [
+            'title' => 'Grandma\'s Secret Apple Pie',
+            'description' => 'This is the pie that has won 3 county fairs! The secret is in the crust.',
+            'category' => 'recipe',
+            'ingredients' => 'Apples, Flour, Butter, Sugar, Cinnamon, Nutmeg',
+            'content' => 'Mix the flour and butter until crumbly. Peel and slice apples...',
+            'image' => 'uploads/community/community1.jpg'
+        ],
+        [
+            'title' => 'How to Keep Herbs Fresh',
+            'description' => 'Stopped throwing away wilted herbs. Here is a life-changing tip.',
+            'category' => 'tip',
+            'content' => 'Wash them, dry them thoroughly, and wrap them in a damp paper towel before storing in a container in the fridge.',
+            'image' => 'uploads/community/community2.jpg'
+        ]
+    ];
+
+    foreach ($community_posts as $post) {
+        $title = addslashes($post['title']);
+        $description = addslashes($post['description']);
+        $content = addslashes($post['content']);
+        $ingredients = isset($post['ingredients']) ? addslashes($post['ingredients']) : '';
+        $image = $post['image'];
+
+        $check_comm = "SELECT id FROM community_cookbook WHERE title = '$title'";
+        if ($connection->query($check_comm)->num_rows == 0) {
+             $sql = "INSERT INTO community_cookbook (title, description, category, ingredients, content, image, user_id)
+                     VALUES ('$title', '$description', '" . $post['category'] . "', 
+                             '$ingredients', '$content', '$image', $user_id)";
+            if ($connection->query($sql)) {
+                echo "Added Community Post: " . $post['title'] . "<br>";
+            } else {
+                echo "Error adding community post: " . $connection->error . "<br>";
+            }
+        } else {
+             $update_comm = "UPDATE community_cookbook SET image = '$image', user_id = $user_id WHERE title = '$title'";
+             $connection->query($update_comm);
+             echo "Community Post exists (Image/User Updated): " . $post['title'] . "<br>";
+        }
+    }
+
+    // Resources Data (Educational & Culinary)
     $resources = [
         [
             'title' => 'Sustainable Cooking',
-            'description' => 'Learn how to cook with the environment in mind. Discover zero-waste recipes and sustainable ingredient sourcing.',
-            'content' => 'Sustainable cooking is about making choices that benefit your health and the planet. It involves using local, seasonal ingredients, reducing food waste, and choosing plant-based options more often...',
+            'description' => 'Learn how to cook with the environment in mind.',
+            'content' => 'Sustainable cooking is not just a trend; it is a necessary shift towards a healthier planet and a more mindful lifestyle. It involves sourcing ingredients locally to reduce carbon footprints, choosing seasonal produce to support local farmers, and minimizing food waste through creative cooking techniques. By embracing plant-based meals and energy-efficient cooking methods, we can significantly lower our environmental impact while enjoying fresh, nutritious, and delicious food. It is about making conscious choices in the kitchen that resonate with the rhythm of nature.',
             'resource_type' => 'culinary',
-            'image' => 'resources/trend1.jpg'
+            'image' => 'uploads/resources/culinary1.jpg'
         ],
         [
             'title' => 'The Art of Plating',
-            'description' => 'Elevate your dishes with professional plating techniques. Make your food look as good as it tastes.',
-            'content' => 'Plating is an art form that transforms a meal into an experience. Contrast, color, texture, and spacing are key elements...',
+            'description' => 'Elevate your dishes with professional plating techniques.',
+            'content' => 'The art of plating is where culinary skills meet visual artistry. A well-plated dish engages the diner\'s senses before they even take the first bite. It relies on the balance of colors, textures, and negative space to create a visually appealing composition. Techniques such as the rule of thirds, using contrasting colors, and garnishing with precision can transform a simple meal into a gourmet experience. Whether it is a rustic arrangement or a minimalistic design, plating tells a story and sets the tone for the dining experience.',
             'resource_type' => 'culinary',
-            'image' => 'resources/trend2.jpg'
+            'image' => 'uploads/resources/culinary2.jpg'
         ],
         [
-            'title' => 'Mastering the Wok',
-            'description' => 'Techniques for stir-frying and smoking. Essential skills for authentic Asian cuisine.',
-            'content' => 'The wok is a versatile tool that can stir-fry, steam, deep-fry, and smoke. The key is high heat (wok hei) and constant movement...',
-            'resource_type' => 'culinary',
-            'image' => 'resources/trend3.jpg'
-        ],
-        
-        // Educational Resources
-         [
-            'title' => 'The Science of Baking',
-            'description' => 'Understanding gluten, yeast, and fermentation. Why your bread rises and your cakes fall.',
-            'content' => 'Baking is chemistry. Understanding the role of each ingredient—flour provides structure (gluten), sugar keeps it tender and retains moisture, eggs bind and leaven...',
-            'resource_type' => 'educational',
-            'image' => 'resources/edu1.jpg'
+             'title' => 'The Science of Baking',
+             'description' => 'Understanding gluten, yeast, and fermentation.',
+             'content' => 'Baking is chemistry. Understanding the role of each ingredient...',
+             'resource_type' => 'educational',
+             'image' => 'uploads/resources/edu1.jpg'
         ],
         [
             'title' => 'History of Street Food',
-            'description' => 'A journey through the origins of popular street foods from around the world.',
-            'content' => 'Street food is the heart of many cultures. From Roman thermopolia to modern food trucks, it offers a glimpse into daily life and local flavors...',
+            'description' => 'A journey through the origins of popular street foods.',
+            'content' => 'Street food is the heart of many cultures...',
             'resource_type' => 'educational',
-            'image' => 'resources/edu2.jpg'
-        ],
-        [
-            'title' => 'Nutrition Basics: Macros vs Micros',
-            'description' => 'A guide to understanding what is on your plate. Balancing proteins, fats, and carbs.',
-            'content' => 'Macronutrients (carbs, fats, proteins) provide energy, while micronutrients (vitamins, minerals) support bodily functions. A balanced diet needs both...',
-            'resource_type' => 'educational',
-            'image' => 'resources/edu3.jpg'
+            'image' => 'uploads/resources/edu2.jpg'
         ]
     ];
 
     foreach ($resources as $resource) {
-         $check_res = "SELECT id FROM resources WHERE title = '" . $resource['title'] . "'";
+         $title = addslashes($resource['title']);
+         $description = addslashes($resource['description']);
+         $content = addslashes($resource['content']);
+         $image = $resource['image'];
+         
+         $check_res = "SELECT id FROM resources WHERE title = '$title'";
          if ($connection->query($check_res)->num_rows == 0) {
             $sql = "INSERT INTO resources (title, description, content, file_url, resource_type, user_id)
-                    VALUES ('" . $resource['title'] . "', '" . $resource['description'] . "', 
-                            '" . $resource['content'] . "', '" . $resource['image'] . "', 
+                    VALUES ('$title', '$description', 
+                            '$content', '$image', 
                             '" . $resource['resource_type'] . "', $user_id)";
             
             if ($connection->query($sql)) {
@@ -292,9 +357,9 @@ if ($admin_id == 0) {
             }
          } else {
              // Update image if needed
-             $update_img = "UPDATE resources SET file_url = '" . $resource['image'] . "', resource_type = '" . $resource['resource_type'] . "' WHERE title = '" . $resource['title'] . "'";
+             $update_img = "UPDATE resources SET file_url = '$image', user_id = $user_id WHERE title = '$title'";
              $connection->query($update_img);
-             echo "Resource exists (Image Updated): " . $resource['title'] . "<br>";
+             echo "Resource exists (Image/User Updated): " . $resource['title'] . "<br>";
          }
     }
 }
