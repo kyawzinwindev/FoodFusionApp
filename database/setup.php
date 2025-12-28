@@ -122,6 +122,23 @@ if ($connection->query($messages)) {
     echo "Table 'contact_messages' Error: " . $connection->error . "<br>";
 }
 
+// Setup Comments Table
+$comments = "CREATE TABLE IF NOT EXISTS comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    community_recipe_id INT NOT NULL,
+    user_id INT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (community_recipe_id) REFERENCES community_cookbook(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)";
+
+if ($connection->query($comments)) {
+    echo "Table 'comments': Checked/Created.<br>";
+} else {
+    echo "Table 'comments' Error: " . $connection->error . "<br>";
+}
+
 // Create Default Admin User
 $admin_email = 'root@gmail.com';
 $admin_id = 0;

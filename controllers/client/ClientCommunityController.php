@@ -118,4 +118,26 @@ if (isset($_POST['delete_community_recipe'])) {
     $connection->query("DELETE FROM community_cookbook WHERE id=$id");
     header("Location: ../../community_cookbook.php?msg=Deleted");
 }
+
+if (isset($_POST['add_comment'])) {
+    if(!isset($_SESSION['id'])) { header("Location: ../../index.php"); exit; }
+
+    $community_recipe_id = (int)$_POST['community_recipe_id'];
+    $user_id = $_SESSION['id'];
+    $comment = trim($_POST['comment']);
+
+    if(empty($comment)) {
+        header("Location: ../../community_view.php?id=$community_recipe_id&error=Comment cannot be empty");
+        exit;
+    }
+
+    $stmt = $connection->prepare("INSERT INTO comments (community_recipe_id, user_id, comment) VALUES (?, ?, ?)");
+    $stmt->bind_param("iis", $community_recipe_id, $user_id, $comment);
+
+    if ($stmt->execute()) {
+        header("Location: ../../community_view.php?id=$community_recipe_id#comments");
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+}
 ?>

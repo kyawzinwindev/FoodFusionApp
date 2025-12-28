@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Cookbook - FoodFusion</title>
     <link rel="stylesheet" href="./css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
     <?php require("./components/navbar.php") ?>
@@ -50,7 +52,7 @@
                 $where_clauses[] = "category = '$category'";
             }
 
-            $sql = "SELECT * FROM community_cookbook";
+            $sql = "SELECT community_cookbook.*, (SELECT COUNT(*) FROM comments WHERE community_recipe_id = community_cookbook.id) as comment_count FROM community_cookbook";
             if (!empty($where_clauses)) {
                 $sql .= " WHERE " . implode(" AND ", $where_clauses);
             }
@@ -70,22 +72,37 @@
                             <h3><a href="community_view.php?id=<?php echo $row['id']; ?>" style="text-decoration:none; color:inherit;"><?php echo $row['title']; ?></a></h3>
                             <p><?php echo substr($row['description'], 0, 100) . '...'; ?></p>
                             
-                            <?php if($row['category'] == 'recipe' && !empty($row['ingredients'])): ?>
-                                <small><strong>Ingredients:</strong> <?php echo substr($row['ingredients'], 0, 50) . '...'; ?></small>
-                            <?php elseif(!empty($row['content'])): ?>
-                                <small><strong>Content:</strong> <?php echo substr($row['content'], 0, 50) . '...'; ?></small>
-                            <?php endif; ?>
-                            
-                            <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
-                            <div class="card-actions">
-                                <form action="./controllers/client/ClientCommunityController.php" method="POST" style="display:inline; width: 50%;">
-                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <input type="hidden" name="redirect" value="../../community_cookbook.php">
-                                    <button type="submit" name="delete_community_recipe" class="btn-delete" style="width:100%" onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
-                                <a href="community_cookbook_edit.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="width: 48%; display:inline-block; text-align:center;">Edit</a>
+                            <div style="margin-top:10px; margin-bottom:10px;">
+                                <small><strong>
+                                    <?php if($row['category'] == 'recipe' && !empty($row['ingredients'])): ?>
+                                        Ingredients: <?php echo substr($row['ingredients'], 0, 30) . '...'; ?>
+                                    <?php elseif(!empty($row['content'])): ?>
+                                        Content: <?php echo substr($row['content'], 0, 30) . '...'; ?>
+                                    <?php endif; ?>
+                                </strong></small>
                             </div>
-                            <?php endif; ?>
+                            
+                            <div class="card-actions" style="justify-content: flex-start; padding-top:10px;">
+                                <!-- View -->
+                                <a href="community_view.php?id=<?php echo $row['id']; ?>" class="btn-link" title="View" style="width:auto; display:inline-block; margin:0; background:#777;"><i class="fa fa-eye"></i></a>
+
+                                <!-- Comment -->
+                                <a href="community_view.php?id=<?php echo $row['id']; ?>#comments" class="btn-link" title="Comments" style="width:auto; display:inline-block; margin:0; background:#FF7A30;">
+                                    <i class="fa fa-comment"></i> <?php echo $row['comment_count']; ?>
+                                </a>
+
+                                <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
+                                    <!-- Edit -->
+                                    <a href="community_cookbook_edit.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="width: auto; padding: 6px 12px; display:inline-block; text-align:center;" title="Edit"><i class="fa fa-edit"></i></a>
+                                    
+                                    <!-- Delete -->
+                                    <form action="./controllers/client/ClientCommunityController.php" method="POST" style="display:inline; width: auto;">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="hidden" name="redirect" value="../../community_cookbook.php">
+                                        <button type="submit" name="delete_community_recipe" class="btn-delete" style="width:auto; padding: 6px 12px;" onclick="return confirm('Are you sure?')" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                     <?php

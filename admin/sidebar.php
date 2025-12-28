@@ -11,6 +11,7 @@
         <li><a href="culinary_resources.php">Culinary Resources</a></li>
         <li><a href="educational_resources.php">Educational Resources</a></li>
         <li><a href="messages.php">Messages</a></li>
+        <li><a href="comments.php">Comments</a></li>
 
         <li><a href="../controllers/logout_controller.php">Logout</a></li>
     </ul>

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipes - FoodFusion</title>
     <link rel="stylesheet" href="./css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
     <?php require("./components/navbar.php") ?>
@@ -77,16 +79,22 @@
                             </div>
                             <p><?php echo substr($row['description'], 0, 100) . '...'; ?></p>
                             
-                            <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
-                            <div class="card-actions">
-                                <form action="./controllers/client/ClientRecipesController.php" method="POST" style="display:inline; width: 50%;">
-                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <input type="hidden" name="redirect" value="../../recipes.php">
-                                    <button type="submit" name="delete_recipe" class="btn-delete" style="width:100%" onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
-                                <a href="recipes_edit.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="width: 48%; display:inline-block; text-align:center;">Edit</a>
+                            <div class="card-actions" style="justify-content: flex-start; padding-top:10px;">
+                                <!-- View -->
+                                <a href="recipe_view.php?id=<?php echo $row['id']; ?>" class="btn-link" title="View" style="width:auto; display:inline-block; margin:0; background:#777;"><i class="fa fa-eye"></i></a>
+
+                                <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
+                                    <!-- Edit -->
+                                    <a href="recipes_edit.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="width: auto; padding: 6px 12px; display:inline-block; text-align:center;" title="Edit"><i class="fa fa-edit"></i></a>
+                                    
+                                    <!-- Delete -->
+                                    <form action="./controllers/client/ClientRecipesController.php" method="POST" style="display:inline; width: auto;">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="hidden" name="redirect" value="../../recipes.php">
+                                        <button type="submit" name="delete_recipe" class="btn-delete" style="width:auto; padding: 6px 12px;" onclick="return confirm('Are you sure?')" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                <?php endif; ?>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                     <?php

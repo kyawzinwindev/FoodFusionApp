@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Culinary Resources - FoodFusion</title>
     <link rel="stylesheet" href="./css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
     <?php require("./components/navbar.php") ?>
@@ -57,21 +59,27 @@
                             <span class="badge"><?php echo ucfirst(!empty($row['file_type']) ? $row['file_type'] : 'image'); ?></span>
                             <h3><a href="resource_view.php?id=<?php echo $row['id']; ?>" style="text-decoration:none; color:inherit;"><?php echo $row['title']; ?></a></h3>
                             <p><?php echo substr($row['description'], 0, 100) . '...'; ?></p>
-                            <a href="resource_view.php?id=<?php echo $row['id']; ?>" class="btn-link">View Resource</a>
-                            
-                            <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
-                            <div class="card-actions">
-                                <form action="./controllers/client/ClientCulinaryController.php" method="POST" style="display:inline; width: 32%;">
-                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <input type="hidden" name="redirect" value="../../culinary_resources.php">
-                                    <button type="submit" name="delete_resource" class="btn-delete" style="width:100%" onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
-                                <a href="culinary_resources_edit.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="width: 32%; display:inline-block; text-align:center;">Edit</a>
+                            <div class="card-actions" style="justify-content: flex-start; padding-top:10px;">
+                                <!-- View -->
+                                <a href="resource_view.php?id=<?php echo $row['id']; ?>" class="btn-link" title="View Resource" style="width:auto; display:inline-block; margin:0; background:#777;"><i class="fa fa-eye"></i></a>
+                                
+                                <!-- Download -->
                                 <?php if(!empty($row['file_url'])): ?>
-                                    <a href="<?php echo $row['file_url']; ?>" download class="btn-link" style="width: 32%; display:inline-block; text-align:center; background:#4CAF50; color:white; margin:0;">Download</a>
+                                    <a href="<?php echo $row['file_url']; ?>" download class="btn-link" style="width: auto; padding: 6px 12px; display:inline-block; text-align:center; background:#4CAF50; color:white; margin:0;" title="Download"><i class="fa fa-download"></i></a>
+                                <?php endif; ?>
+
+                                <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
+                                    <!-- Edit -->
+                                    <a href="culinary_resources_edit.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="width: auto; padding: 6px 12px; display:inline-block; text-align:center;" title="Edit"><i class="fa fa-edit"></i></a>
+
+                                    <!-- Delete -->
+                                    <form action="./controllers/client/ClientCulinaryController.php" method="POST" style="display:inline; width: auto;">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="hidden" name="redirect" value="../../culinary_resources.php">
+                                        <button type="submit" name="delete_resource" class="btn-delete" style="width:auto; padding: 6px 12px;" onclick="return confirm('Are you sure?')" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </form>
                                 <?php endif; ?>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                     <?php

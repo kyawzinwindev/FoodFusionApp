@@ -39,6 +39,13 @@ if (isset($_POST['btnLogin'])) {
         exit;
     }
 
+    // Check if user is admin
+    if (isset($arr['type']) && $arr['type'] == 'admin') {
+        echo "<script>alert('Admins cannot log in here. Please use the Admin Panel.');</script>";
+        echo "<script>history.back();</script>";
+        exit;
+    }
+
     $encrypted_password = $arr['password'];
     $userId = $arr['id'];
 
