@@ -30,7 +30,6 @@ body {
     margin-bottom: 60px;
 }
 
-/* Reverse every even row */
 .zigzag-row:nth-child(even) {
     flex-direction: row-reverse;
 }
@@ -92,8 +91,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
-  /* NEW: make navbar fixed */
   position: fixed;
   top: 0;
   left: 0;
@@ -841,7 +838,7 @@ body {
 /* Card Actions */
 .card-actions {
     display: flex;
-    justify-content: flex-start; /* Changed from default (stretch/start) to explicit start, though flex default is start on main axis */
+    justify-content: flex-start; 
     gap: 10px;
     margin-top: auto;
     border-top: 1px solid #eee;
@@ -856,7 +853,7 @@ body {
     font-size: 0.9rem;
     text-decoration: none;
     text-align: center;
-    display: inline-block; /* Ensure they are inline block */
+    display: inline-block; 
 }
 
 .btn-edit {
@@ -872,7 +869,6 @@ body {
 .btn-link {
     background: #FF7A30;
     color: white;
-    /* Removed width 100% and margin-bottom for icon button layout */
 }
 
 /* ---------------- VIEW PAGE STYLES ---------------- */
@@ -1203,8 +1199,6 @@ body {
     outline: none;
     cursor: pointer;
     background-color: #f9f9f9;
-    
-    /* Custom Arrow */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1249,16 +1243,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none; /* Let clicks pass through */
+    pointer-events: none; 
     transition: background 0.3s;
 }
 
 .play-overlay i {
     color: white;
     font-size: 20px;
-    margin-left: 2px; /* Visual adjustment for play icon */
+    margin-left: 2px; 
 }
 
 .video-placeholder:hover .play-overlay {
-    background: rgba(255, 122, 48, 0.9); /* Brand color on hover */
+    background: rgba(255, 122, 48, 0.9); 
 }

@@ -78,7 +78,7 @@ $row = $result->fetch_assoc();
             if ($comment_res->num_rows > 0) {
                 while($comment = $comment_res->fetch_assoc()) {
                     $user_img = !empty($comment['profile_image']) ? 'uploads/profiles/' . $comment['profile_image'] : 'https://placehold.co/50x50?text=U';
-                    // Use a placeholder if file doesn't exist (basic check)
+
                     if($comment['profile_image'] == 'default.png') {
                          $user_img = 'https://placehold.co/50x50?text=' . substr($comment['first_name'], 0, 1);
                     }

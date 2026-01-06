@@ -3,7 +3,7 @@ include("../../database/config.php");
 
 if (isset($_POST['delete_comment'])) {
     session_start();
-    // Basic Admin Check (Should rely on a more robust middleware in real app, but following pattern)
+
     if (!isset($_SESSION['admin_id'])) {
         header("Location: ../../admin/login.php");
         exit;

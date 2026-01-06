@@ -36,7 +36,6 @@ include("auth_check.php");
             </thead>
             <tbody>
                 <?php
-                // Join with users and community_cookbook to get readable names if needed
                 $sql = "SELECT comments.*, users.first_name, users.last_name, community_cookbook.title as recipe_title 
                         FROM comments 
                         LEFT JOIN users ON comments.user_id = users.id 

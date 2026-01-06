@@ -275,7 +275,7 @@
     <!-- Footer -->
     <?php require("./components/footer.php") ?>
 
-    <!-- Redesigned COOKIE CONSENT -->
+    <!--COOKIE CONSENT -->
     <div id="cookieConsent">
         <div class="cookie-wrapper">
             <p>

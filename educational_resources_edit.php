@@ -81,7 +81,7 @@ $row = $result->fetch_assoc();
 
             if(fileTypeSelect && fileInput) {
                 fileTypeSelect.addEventListener('change', updateFileAccept);
-                updateFileAccept(); // Initial call
+                updateFileAccept(); 
             }
         });
     </script>
