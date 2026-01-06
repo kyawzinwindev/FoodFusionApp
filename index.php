@@ -15,6 +15,7 @@
     <!-- Navigation -->
     <?php require("./components/navbar.php") ?>
 
+
     <!-- Hero -->
     <section class="intro-section">
         <div class="intro-content">
