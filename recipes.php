@@ -30,6 +30,7 @@
                 <select name="cuisine_type" class="filter-select">
                     <option value="">All Cuisines</option>
                     <option value="Italian" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Italian') echo 'selected'; ?>>Italian</option>
+                    <option value="Japanese" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Japanese') echo 'selected'; ?>>Japanese</option>
                     <option value="Asian" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Asian') echo 'selected'; ?>>Asian</option>
                     <option value="Mexican" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Mexican') echo 'selected'; ?>>Mexican</option>
                     <option value="American" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'American') echo 'selected'; ?>>American</option>

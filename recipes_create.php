@@ -34,6 +34,7 @@ if(!isset($_SESSION['id'])) { header("Location: index.php"); exit; }
                     <label>Cuisine</label>
                      <select name="cuisine_type" class="form-input">
                         <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
                         <option value="Asian">Asian</option>
                         <option value="Mexican">Mexican</option>
                         <option value="American">American</option>

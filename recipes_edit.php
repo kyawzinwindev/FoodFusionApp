@@ -40,6 +40,7 @@ $row = $result->fetch_assoc();
                     <label>Cuisine</label>
                      <select name="cuisine_type" class="form-input">
                         <option value="Italian" <?php if($row['cuisine_type']=='Italian') echo 'selected'; ?>>Italian</option>
+                        <option value="Japanese" <?php if($row['cuisine_type']=='Japanese') echo 'selected'; ?>>Japanese</option>
                         <option value="Asian" <?php if($row['cuisine_type']=='Asian') echo 'selected'; ?>>Asian</option>
                         <option value="Mexican" <?php if($row['cuisine_type']=='Mexican') echo 'selected'; ?>>Mexican</option>
                         <option value="American" <?php if($row['cuisine_type']=='American') echo 'selected'; ?>>American</option>
