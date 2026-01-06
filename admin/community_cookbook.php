@@ -17,7 +17,7 @@ include("auth_check.php");
         <button class="admin-hamburger" id="adminBurger">☰</button>
         <div class="admin-header">
             <h1>Community Cookbook</h1>
-            <a href="community_cookbook_create.php" class="admin-btn">Add Recipe</a> 
+            <a href="community_cookbook_create.php" class="admin-btn">Add Community Cookbook</a> 
         </div>
 
         <?php if(isset($_GET['msg'])): ?>
