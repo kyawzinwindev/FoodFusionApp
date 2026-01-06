@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FoodFusion Home Page</title>
     <link rel="stylesheet" href="./css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -41,7 +42,6 @@
                 while($row = $res_recipes->fetch_assoc()) {
                     $image = !empty($row['image']) ? $row['image'] : 'https://placehold.co/600x400?text=No+Image';
                     
-                    // Logic for Link
                     $recipeHref = "javascript:void(0)";
                     $recipeOnclick = "openModal('registerModal')"; 
                     
@@ -117,8 +117,6 @@
 
                 foreach($static_recipes as $row) {
                     $image = $row['image'];
-                    
-                     // Logic for Link
                     $recipeHref = "";
                     $recipeOnclick = "";
                     
@@ -190,7 +188,14 @@
         ?>
         <div class="zigzag-row">
             <div class="zigzag-img" onclick="<?php echo $trendAction; ?>" style="cursor: pointer;">
-                <img src="<?php echo $trendImage; ?>" alt="<?php echo $trend['title']; ?>">
+                <?php if(isset($trend['file_type']) && strpos($trend['file_type'], 'video') !== false): ?>
+                    <div class="video-placeholder">
+                        <video src="<?php echo $trend['file_url']; ?>" preload="metadata" style="width:100%; height:300px; object-fit:cover; pointer-events: none; border-radius: 15px;"></video>
+                        <div class="play-overlay"><i class="fas fa-play"></i></div>
+                    </div>
+                <?php else: ?>
+                    <img src="<?php echo $trendImage; ?>" alt="<?php echo $trend['title']; ?>">
+                <?php endif; ?>
             </div>
             <div class="zigzag-content">
                 <h3><?php echo $trend['title']; ?></h3>
@@ -227,7 +232,14 @@
         ?>
         <div class="zigzag-row">
             <div class="zigzag-img" onclick="<?php echo $trendAction; ?>" style="cursor: pointer;">
-                <img src="<?php echo $trendImage; ?>" alt="<?php echo $trend['title']; ?>">
+                <?php if(isset($trend['file_type']) && strpos($trend['file_type'], 'video') !== false): ?>
+                    <div class="video-placeholder">
+                        <video src="<?php echo $trend['file_url']; ?>" preload="metadata" style="width:100%; height:300px; object-fit:cover; pointer-events: none; border-radius: 15px;"></video>
+                        <div class="play-overlay"><i class="fas fa-play"></i></div>
+                    </div>
+                <?php else: ?>
+                    <img src="<?php echo $trendImage; ?>" alt="<?php echo $trend['title']; ?>">
+                <?php endif; ?>
             </div>
             <div class="zigzag-content">
                 <h3><?php echo $trend['title']; ?></h3>
