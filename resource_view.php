@@ -27,8 +27,7 @@ $row = $result->fetch_assoc();
                 <?php if(strpos($row['file_type'], 'image') !== false || empty($row['file_type'])): ?>
                     <img src="<?php echo $row['file_url']; ?>" alt="Resource">
                 <?php elseif(strpos($row['file_type'], 'video') !== false): ?>
-                    <video controls style="width: 100%; max-height: 500px; border-radius: 8px;">
-                        <source src="<?php echo $row['file_url']; ?>" type="video/mp4">
+                    <video src="<?php echo $row['file_url']; ?>" controls style="width: 100%; max-height: 500px; border-radius: 8px;">
                         Your browser does not support the video tag.
                     </video>
                 <?php elseif(strpos($row['file_type'], 'pdf') !== false): ?>

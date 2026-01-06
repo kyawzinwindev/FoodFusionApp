@@ -50,7 +50,10 @@
                     <div class="card">
                         <a href="resource_view.php?id=<?php echo $row['id']; ?>">
                             <?php if(strpos($row['file_type'], 'video') !== false): ?>
-                                 <video src="<?php echo $row['file_url']; ?>" style="width:100%; height:200px; object-fit:cover;"></video>
+                                 <div class="video-placeholder">
+                                     <video src="<?php echo $row['file_url']; ?>" preload="metadata" style="width:100%; height:200px; object-fit:cover; pointer-events: none;"></video>
+                                     <div class="play-overlay"><i class="fas fa-play"></i></div>
+                                 </div>
                             <?php else: ?>
                                 <img src="<?php echo $display_img; ?>" alt="<?php echo $row['title']; ?>">
                             <?php endif; ?>

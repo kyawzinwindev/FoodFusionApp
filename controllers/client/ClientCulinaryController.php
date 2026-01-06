@@ -85,16 +85,18 @@ if (isset($_POST['update_resource'])) {
     $content = $_POST['content'];
 
     // File handling
+    // File handling
+    $file_type = $_POST['file_type'];
     if (isset($_FILES['file']['name']) && $_FILES['file']['name'] != "") {
         $path = uploadFile($_FILES['file']);
         
-        $stmt = $connection->prepare("UPDATE resources SET title=?, description=?, content=?, file_url=? WHERE id=?");
+        $stmt = $connection->prepare("UPDATE resources SET title=?, description=?, content=?, file_type=?, file_url=? WHERE id=?");
         if (!$stmt) die("Prepare failed (Update with file): " . $connection->error);
-        $stmt->bind_param("ssssi", $title, $description, $content, $path, $id);
+        $stmt->bind_param("sssssi", $title, $description, $content, $file_type, $path, $id);
     } else {
-        $stmt = $connection->prepare("UPDATE resources SET title=?, description=?, content=? WHERE id=?");
+        $stmt = $connection->prepare("UPDATE resources SET title=?, description=?, content=?, file_type=? WHERE id=?");
         if (!$stmt) die("Prepare failed (Update): " . $connection->error);
-        $stmt->bind_param("sssi", $title, $description, $content, $id);
+        $stmt->bind_param("ssssi", $title, $description, $content, $file_type, $id);
     }
 
     if ($stmt->execute()) {

@@ -50,5 +50,29 @@
 
     <?php require("./components/footer.php") ?>
     <script src="./js/app.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileTypeSelect = document.querySelector('select[name="file_type"]');
+            const fileInput = document.querySelector('input[type="file"]');
+            
+            function updateFileAccept() {
+                const type = fileTypeSelect.value;
+                if (type === 'image') {
+                    fileInput.setAttribute('accept', 'image/*');
+                } else if (type === 'video') {
+                    fileInput.setAttribute('accept', 'video/*');
+                } else if (type === 'pdf') {
+                    fileInput.setAttribute('accept', 'application/pdf');
+                } else {
+                    fileInput.removeAttribute('accept');
+                }
+            }
+
+            if(fileTypeSelect && fileInput) {
+                fileTypeSelect.addEventListener('change', updateFileAccept);
+                updateFileAccept(); // Initial call
+            }
+        });
+    </script>
 </body>
 </html>
