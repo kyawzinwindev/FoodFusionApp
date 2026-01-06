@@ -14,6 +14,12 @@ function uploadImage($file)
         die("Upload failed with error code: " . $file['error']);
     }
 
+    // Validate that it's a real image
+    $check = getimagesize($file["tmp_name"]);
+    if($check === false) {
+        die("File is not an image.");
+    }
+
     // Resolve absolute path
     $base_dir = realpath(__DIR__ . "/../../"); 
     $target_dir_abs = $base_dir . "/uploads/recipes/";

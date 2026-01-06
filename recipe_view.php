@@ -17,6 +17,9 @@ $row = $result->fetch_assoc();
 
     <?php 
     $image = !empty($row['image']) ? $row['image'] : 'https://placehold.co/1200x600?text=Delicious';
+    if(!empty($row['image']) && !file_exists($row['image'])) {
+        $image = 'https://placehold.co/1200x600?text=Image+Not+Found';
+    }
     ?>
     <div class="view-header" style="background-image: url('<?php echo $image; ?>');">
         <div class="view-header-content">

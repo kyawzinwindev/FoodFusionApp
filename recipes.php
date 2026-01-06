@@ -68,7 +68,7 @@
                     ?>
                     <div class="card">
                         <a href="recipe_view.php?id=<?php echo $row['id']; ?>">
-                            <img src="<?php echo $image; ?>" alt="<?php echo $row['title']; ?>">
+<img src="<?php echo $image; ?>" alt="<?php echo $row['title']; ?>" onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=No+Image';">
                         </a>
                         <div class="card-body">
                             <span class="badge"><?php echo $row['cuisine_type']; ?></span>
