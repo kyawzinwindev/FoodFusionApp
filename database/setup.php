@@ -35,7 +35,6 @@ $users = "CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password TEXT NOT NULL,
     type VARCHAR(100) DEFAULT 'user',
-    profile_image VARCHAR(255) DEFAULT 'default.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 

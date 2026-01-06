@@ -68,7 +68,7 @@ $row = $result->fetch_assoc();
             
             <?php
             // Fetch Comments
-            $comment_sql = "SELECT c.*, u.first_name, u.last_name, u.profile_image 
+            $comment_sql = "SELECT c.*, u.first_name, u.last_name 
                             FROM comments c 
                             JOIN users u ON c.user_id = u.id 
                             WHERE c.community_recipe_id = $id 
@@ -77,11 +77,7 @@ $row = $result->fetch_assoc();
             
             if ($comment_res->num_rows > 0) {
                 while($comment = $comment_res->fetch_assoc()) {
-                    $user_img = !empty($comment['profile_image']) ? 'uploads/profiles/' . $comment['profile_image'] : 'https://placehold.co/50x50?text=U';
-
-                    if($comment['profile_image'] == 'default.png') {
-                         $user_img = 'https://placehold.co/50x50?text=' . substr($comment['first_name'], 0, 1);
-                    }
+                    $user_img = 'https://placehold.co/50x50?text=' . substr($comment['first_name'], 0, 1);
                     ?>
                     <div class="comment-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display:flex; gap:15px;">
                         <img src="<?php echo $user_img; ?>" alt="User" style="width:50px; height:50px; border-radius:50%; object-fit:cover;">
