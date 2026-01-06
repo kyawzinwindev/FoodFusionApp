@@ -306,3 +306,73 @@ body.admin-body {
     text-decoration: none;
     font-size: 14px;
 }
+
+/* Forms */
+.form-container {
+    max-width: 800px;
+    margin: 40px auto; 
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.form-container h2 {
+    color: #FF7A30;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fafafa;
+    transition: 0.3s;
+}
+
+.form-input:focus {
+    border-color: #FF7A30;
+    outline: none;
+    background: white;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: #FF7A30;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: #e66015;
+}

@@ -43,8 +43,18 @@ $row = $result->fetch_assoc();
                 </div>
 
                 <div class="form-group">
+                    <label>File Type</label>
+                    <select name="file_type" id="fileTypeSelect" class="form-input">
+                        <option value="image" <?php if(strpos($row['file_type'], 'image') !== false) echo 'selected'; ?>>Image</option>
+                        <option value="video" <?php if(strpos($row['file_type'], 'video') !== false) echo 'selected'; ?>>Video</option>
+                        <option value="pdf" <?php if(strpos($row['file_type'], 'pdf') !== false) echo 'selected'; ?>>PDF</option>
+                        <option value="file" <?php if(strpos($row['file_type'], 'file') !== false) echo 'selected'; ?>>File</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label>File (Leave blank to keep current)</label>
-                    <input type="file" name="file" class="form-input">
+                    <input type="file" name="file" id="fileInput" class="form-input">
                     <?php if($row['file_url']): ?>
                         <small>Current: <a href="../../FoodFusionApp/<?php echo $row['file_url']; ?>" target="_blank">View File</a></small>
                     <?php endif; ?>
@@ -55,5 +65,30 @@ $row = $result->fetch_assoc();
         </div>
     </div>
     <script src="../js/admin.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileTypeSelect = document.getElementById('fileTypeSelect');
+            const fileInput = document.getElementById('fileInput');
+
+            function updateAcceptAttribute() {
+                const type = fileTypeSelect.value;
+                if (type === 'image') {
+                    fileInput.accept = 'image/*';
+                } else if (type === 'video') {
+                    fileInput.accept = 'video/*';
+                } else if (type === 'pdf') {
+                    fileInput.accept = 'application/pdf';
+                } else {
+                    fileInput.removeAttribute('accept');
+                }
+            }
+
+            // Initial call
+            updateAcceptAttribute();
+
+            // On change
+            fileTypeSelect.addEventListener('change', updateAcceptAttribute);
+        });
+    </script>
 </body>
 </html>
