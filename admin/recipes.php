@@ -48,6 +48,7 @@ include("auth_check.php");
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
+                    <th>User</th>
                     <th>Cuisine</th>
                     <th>Difficulty</th>
                     <th>Actions</th>
@@ -58,24 +59,26 @@ include("auth_check.php");
                 $where_clauses = [];
                 if (!empty($_GET['search'])) {
                     $search = $connection->real_escape_string($_GET['search']);
-                    $where_clauses[] = "(title LIKE '%$search%' OR description LIKE '%$search%' OR ingredients LIKE '%$search%')";
+                    $where_clauses[] = "(recipes.title LIKE '%$search%' OR recipes.description LIKE '%$search%' OR recipes.ingredients LIKE '%$search%')";
                 }
                 if (!empty($_GET['cuisine_type'])) {
                     $cuisine = $connection->real_escape_string($_GET['cuisine_type']);
-                    $where_clauses[] = "cuisine_type = '$cuisine'";
+                    $where_clauses[] = "recipes.cuisine_type = '$cuisine'";
                 }
 
-                $sql = "SELECT * FROM recipes";
+                $sql = "SELECT recipes.*, users.first_name, users.last_name FROM recipes LEFT JOIN users ON recipes.user_id = users.id";
                 if (!empty($where_clauses)) {
                     $sql .= " WHERE " . implode(" AND ", $where_clauses);
                 }
-                $sql .= " ORDER BY created_at DESC";
+                $sql .= " ORDER BY recipes.created_at DESC";
                 $result = $connection->query($sql);
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
+                        $user_name = $row['first_name'] ? htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) : 'Unknown';
                         echo "<tr>";
                         echo "<td>" . $row['id'] . "</td>";
                         echo "<td>" . $row['title'] . "</td>";
+                        echo "<td>" . $user_name . "</td>";
                         echo "<td>" . $row['cuisine_type'] . "</td>";
                         echo "<td>" . $row['difficulty'] . "</td>";
                         echo "<td>

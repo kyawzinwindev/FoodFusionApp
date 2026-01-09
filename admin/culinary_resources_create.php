@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <label>File Type</label>
-                    <select name="file_type" class="form-input">
+                    <select name="file_type" id="fileTypeSelect" class="form-input">
                         <option value="image">Image</option>
                         <option value="pdf">PDF</option>
                         <option value="video">Video</option>
@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                     <label>Upload File</label>
-                    <input type="file" name="file" class="form-input">
+                    <input type="file" name="file" id="fileInput" class="form-input">
                 </div>
 
                 <button type="submit" name="create_resource" class="submit-btn">Add Resource</button>
@@ -54,5 +54,30 @@
         </div>
     </div>
     <script src="../js/admin.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileTypeSelect = document.getElementById('fileTypeSelect');
+            const fileInput = document.getElementById('fileInput');
+
+            function updateAcceptAttribute() {
+                const type = fileTypeSelect.value;
+                if (type === 'image') {
+                    fileInput.accept = 'image/*';
+                } else if (type === 'video') {
+                    fileInput.accept = 'video/*';
+                } else if (type === 'pdf') {
+                    fileInput.accept = 'application/pdf';
+                } else {
+                    fileInput.removeAttribute('accept');
+                }
+            }
+
+            // Initial call
+            updateAcceptAttribute();
+
+            // On change
+            fileTypeSelect.addEventListener('change', updateAcceptAttribute);
+        });
+    </script>
 </body>
 </html>

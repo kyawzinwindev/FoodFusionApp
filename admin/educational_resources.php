@@ -40,24 +40,27 @@ include("auth_check.php");
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
+                    <th>User</th>
                     <th>Type</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT * FROM resources WHERE resource_type = 'educational'";
+                $sql = "SELECT resources.*, users.first_name, users.last_name FROM resources LEFT JOIN users ON resources.user_id = users.id WHERE resource_type = 'educational'";
                 if (!empty($_GET['search'])) {
                     $search = $connection->real_escape_string($_GET['search']);
-                    $sql .= " AND (title LIKE '%$search%' OR description LIKE '%$search%')";
+                    $sql .= " AND (resources.title LIKE '%$search%' OR resources.description LIKE '%$search%')";
                 }
-                $sql .= " ORDER BY created_at DESC";
+                $sql .= " ORDER BY resources.created_at DESC";
                 $result = $connection->query($sql);
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
+                        $user_name = $row['first_name'] ? htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) : 'Unknown';
                         echo "<tr>";
                         echo "<td>" . $row['id'] . "</td>";
                         echo "<td>" . $row['title'] . "</td>";
+                        echo "<td>" . $user_name . "</td>";
                         echo "<td>" . $row['file_type'] . "</td>";
                         echo "<td>
                                 <form action='../controllers/admin/AdminEducationalResourcesController.php' method='POST' style='display:inline;'>

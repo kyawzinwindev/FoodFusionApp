@@ -47,7 +47,7 @@ include("auth_check.php");
                     <th>ID</th>
                     <th>Title</th>
                     <th>Category</th>
-                    <th>User ID</th>
+                    <th>User</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -56,26 +56,27 @@ include("auth_check.php");
                 $where_clauses = [];
                 if (!empty($_GET['search'])) {
                     $search = $connection->real_escape_string($_GET['search']);
-                    $where_clauses[] = "(title LIKE '%$search%' OR description LIKE '%$search%' OR ingredients LIKE '%$search%' OR content LIKE '%$search%')";
+                    $where_clauses[] = "(community_cookbook.title LIKE '%$search%' OR community_cookbook.description LIKE '%$search%' OR community_cookbook.ingredients LIKE '%$search%' OR community_cookbook.content LIKE '%$search%')";
                 }
                 if (!empty($_GET['category'])) {
                     $category = $connection->real_escape_string($_GET['category']);
-                    $where_clauses[] = "category = '$category'";
+                    $where_clauses[] = "community_cookbook.category = '$category'";
                 }
 
-                $sql = "SELECT * FROM community_cookbook";
+                $sql = "SELECT community_cookbook.*, users.first_name, users.last_name FROM community_cookbook LEFT JOIN users ON community_cookbook.user_id = users.id";
                 if (!empty($where_clauses)) {
                     $sql .= " WHERE " . implode(" AND ", $where_clauses);
                 }
-                $sql .= " ORDER BY created_at DESC";
+                $sql .= " ORDER BY community_cookbook.created_at DESC";
                 $result = $connection->query($sql);
                 if ($result && $result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
+                        $user_name = $row['first_name'] ? htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) : 'Unknown';
                         echo "<tr>";
                         echo "<td>" . $row['id'] . "</td>";
                         echo "<td>" . $row['title'] . "</td>";
                         echo "<td>" . ucfirst($row['category']) . "</td>";
-                        echo "<td>" . $row['user_id'] . "</td>";
+                        echo "<td>" . $user_name . "</td>";
                         echo "<td>
                                 <form action='../controllers/admin/AdminCommunityController.php' method='POST' style='display:inline;'>
                                     <input type='hidden' name='id' value='" . $row['id'] . "'>
