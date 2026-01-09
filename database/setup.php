@@ -168,7 +168,6 @@ if ($res_admin && $res_admin->num_rows == 0) {
     echo "Admin User already exists.<br>";
 }
 
-echo "<hr>";
 echo "<p>Database setup and seeding completed.</p>";
 
 $connection->close();
