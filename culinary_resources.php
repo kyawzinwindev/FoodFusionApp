@@ -15,7 +15,7 @@
     <div class="page-header">
         <h1>Culinary Resources</h1>
         <p>Explore guides, tips, and tools to elevate your cooking.</p>
-        <a href="culinary_resources_create.php" class="create-btn">Add Resource</a>
+
     </div>
 
     <div class="container section">
@@ -23,8 +23,16 @@
         <div class="search-filter-container">
             <form method="GET" action="culinary_resources.php" class="search-form" style="justify-content:center;">
                 <input type="text" name="search" class="search-input" placeholder="Search by title, description..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" style="flex:1; max-width:600px;">
-                <button type="submit" class="search-btn">Search</button>
-                <?php if(isset($_GET['search'])): ?>
+                
+                <select name="type" class="search-input" style="width:auto; cursor:pointer;">
+                    <option value="">All Types</option>
+                    <option value="video" <?php echo (isset($_GET['type']) && $_GET['type'] == 'video') ? 'selected' : ''; ?>>Video</option>
+                    <option value="image" <?php echo (isset($_GET['type']) && $_GET['type'] == 'image') ? 'selected' : ''; ?>>Image</option>
+                    <option value="pdf" <?php echo (isset($_GET['type']) && $_GET['type'] == 'pdf') ? 'selected' : ''; ?>>PDF</option>
+                </select>
+
+                <button type="submit" class="search-btn">Filter</button>
+                <?php if(isset($_GET['search']) || isset($_GET['type'])): ?>
                     <a href="culinary_resources.php" class="search-btn" style="background:#777; text-decoration:none; display:flex; align-items:center;">Clear</a>
                 <?php endif; ?>
             </form>
@@ -37,6 +45,11 @@
             if (!empty($_GET['search'])) {
                 $search = $connection->real_escape_string($_GET['search']);
                 $sql .= " AND (title LIKE '%$search%' OR description LIKE '%$search%')";
+            }
+
+            if (!empty($_GET['type'])) {
+                $type = $connection->real_escape_string($_GET['type']);
+                $sql .= " AND file_type = '$type'";
             }
             
             $sql .= " ORDER BY id DESC";
@@ -71,17 +84,7 @@
                                     <a href="<?php echo $row['file_url']; ?>" download class="btn-link" style="width: auto; padding: 6px 12px; display:inline-block; text-align:center; background:#4CAF50; color:white; margin:0;" title="Download"><i class="fa fa-download"></i></a>
                                 <?php endif; ?>
 
-                                <?php if(isset($_SESSION['id']) && isset($row['user_id']) && $row['user_id'] == $_SESSION['id']): ?>
-                                    <!-- Edit -->
-                                    <a href="culinary_resources_edit.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="width: auto; padding: 6px 12px; display:inline-block; text-align:center;" title="Edit"><i class="fa fa-edit"></i></a>
 
-                                    <!-- Delete -->
-                                    <form action="./controllers/client/ClientCulinaryController.php" method="POST" style="display:inline; width: auto;">
-                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <input type="hidden" name="redirect" value="../../culinary_resources.php">
-                                        <button type="submit" name="delete_resource" class="btn-delete" style="width:auto; padding: 6px 12px;" onclick="return confirm('Are you sure?')" title="Delete"><i class="fa fa-trash"></i></button>
-                                    </form>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

@@ -36,7 +36,7 @@
         <div class="recipe-container">
             <?php
             // Fetch 3 recipes
-            $sql_recipes = "SELECT * FROM recipes ORDER BY created_at DESC LIMIT 3";
+            $sql_recipes = "SELECT * FROM recipes ORDER BY id ASC LIMIT 3";
             $res_recipes = $connection->query($sql_recipes);
 
             if ($res_recipes->num_rows > 0) {
@@ -170,7 +170,7 @@
         
         <?php
         // Fetch 2 resources
-        $sql_trends = "SELECT * FROM resources ORDER BY created_at DESC LIMIT 2";
+        $sql_trends = "SELECT * FROM resources WHERE resource_type = 'culinary' ORDER BY id ASC LIMIT 2";
         $res_trends = $connection->query($sql_trends);
 
         if ($res_trends->num_rows > 0) {

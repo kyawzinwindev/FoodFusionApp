@@ -36,8 +36,14 @@
                     <option value="American" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'American') echo 'selected'; ?>>American</option>
                     <option value="Other" <?php if(isset($_GET['cuisine_type']) && $_GET['cuisine_type'] == 'Other') echo 'selected'; ?>>Other</option>
                 </select>
+                <select name="difficulty" class="filter-select">
+                    <option value="">All Difficulties</option>
+                    <option value="Easy" <?php if(isset($_GET['difficulty']) && $_GET['difficulty'] == 'Easy') echo 'selected'; ?>>Easy</option>
+                    <option value="Medium" <?php if(isset($_GET['difficulty']) && $_GET['difficulty'] == 'Medium') echo 'selected'; ?>>Medium</option>
+                    <option value="Hard" <?php if(isset($_GET['difficulty']) && $_GET['difficulty'] == 'Hard') echo 'selected'; ?>>Hard</option>
+                </select>
                 <button type="submit" class="search-btn">Search</button>
-                <?php if(isset($_GET['search']) || isset($_GET['cuisine_type'])): ?>
+                <?php if(isset($_GET['search']) || isset($_GET['cuisine_type']) || isset($_GET['difficulty'])): ?>
                     <a href="recipes.php" class="search-btn" style="background:#777; text-decoration:none; display:flex; align-items:center;">Clear</a>
                 <?php endif; ?>
             </form>
@@ -54,6 +60,10 @@
             if (!empty($_GET['cuisine_type'])) {
                 $cuisine = $connection->real_escape_string($_GET['cuisine_type']);
                 $where_clauses[] = "cuisine_type = '$cuisine'";
+            }
+            if (!empty($_GET['difficulty'])) {
+                $difficulty = $connection->real_escape_string($_GET['difficulty']);
+                $where_clauses[] = "difficulty = '$difficulty'";
             }
 
             $sql = "SELECT * FROM recipes";
