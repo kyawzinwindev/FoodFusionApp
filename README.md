@@ -72,14 +72,6 @@ http://localhost/FoodFusionApp
 
 ---
 
-## Screenshots
-
-| Home Page | Recipe Detail | Admin Panel |
-|:---:|:---:|:---:|
-| `<img src="assets/images/home.png" width="250"/>` | `<img src="assets/images/detail.png" width="250"/>` | `<img src="assets/images/admin.png" width="250"/>` |
-
----
-
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
